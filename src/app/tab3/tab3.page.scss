@@ -1,0 +1,25 @@
+ion-toolbar {
+    --background: #711402;
+    --color: white;
+    border-radius: 0% 0% 25% 0%!important;
+    border: #000000;
+  }
+  .cantidad{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .icono_eliminar {
+    color: rgb(255, 0, 0);
+    font-size: 25px;
+  }
+  ion-badge {
+    --background: #711402;
+    --color: white;
+    --padding-end: 20px;
+    --padding-start: 20px;
+  }
+  .boton_cantidad{
+
+--background: #D77B2B;
+  }

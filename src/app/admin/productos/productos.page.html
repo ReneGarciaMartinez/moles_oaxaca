@@ -1,0 +1,103 @@
+<ion-toolbar>
+  <ion-title>
+    <ion-icon name="cube-outline"></ion-icon> Productos
+  </ion-title>
+</ion-toolbar>
+
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="eleccion">
+    <ion-row>
+      <ion-segment (ionChange)="segmentChanged($event)" mode="ios" [value]="valueSelected">
+        <ion-segment-button value="moles">
+          <ion-label>Moles</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="chocolates">
+          <ion-label>Chocolates</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    <ion-row>
+      <ion-searchbar mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
+
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="valueSelected == 'chocolates'">
+    <ion-grid>
+      <ion-row>
+
+        <ion-col *ngFor="let chocolate of chocolates" size="6">
+          <ion-card class="card">
+            <img alt="Silhouette of mountains" src="{{chocolate.img}}" />
+            <ion-card-content>
+              <ion-fab class="boton_agregar">
+                <ion-fab-button>
+                  <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-list side="top">
+                  <ion-fab-button (click)="presentAlert(chocolate,'chocolate')" color="danger">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button (click)="openModalEditarChocolate(chocolate)"  color="warning">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </ion-fab-button>
+
+                </ion-fab-list>
+              </ion-fab>
+              {{chocolate.nombre}}
+              ${{chocolate.precio}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+    <!--Boton agregar -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openModalChocolate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- Termina boton agregar -->
+  </div>
+  <div *ngIf="valueSelected == 'moles'">
+    <ion-grid>
+      <ion-row>
+
+        <ion-col *ngFor="let mole of moles" size="6">
+          <ion-card class="card">
+            <img alt="Silhouette of mountains" src="{{mole.img}}" />
+            <ion-card-content>
+
+              <ion-fab class="boton_agregar">
+                <ion-fab-button>
+                  <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-list side="top">
+                  <ion-fab-button (click)="presentAlert(mole,'mole')" color="danger">
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </ion-fab-button>
+                  <ion-fab-button (click)="openModalEditarMole(mole)" color="warning">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </ion-fab-button>
+
+                </ion-fab-list>
+              </ion-fab>
+
+              {{mole.nombre}}
+              ${{mole.precio}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!--Boton agregar -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openModalMole()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- Termina boton agregar -->
+  </div>
+</ion-content>

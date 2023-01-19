@@ -1,0 +1,26 @@
+.card{
+    border-color: black;
+    border-radius: 30px;
+    background-color: #f1f1f1;
+    color: #711401;
+}
+.boton_agregar{
+    top: -40px;
+    left: 88px;
+}
+img{
+    width: 145px;
+    height: 145px;
+}
+.eleccion{
+    padding-top: 10px;
+}
+.icono{
+    font-size: 45px;
+}
+ion-toolbar {
+    --background: #711402;
+    --color: white;
+    border-radius: 0% 0% 25% 0%!important;
+    border: #000000;
+  }
