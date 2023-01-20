@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PerfilComponent } from './components/perfil/perfil.component';
+
 
 const routes: Routes = [
   {
@@ -31,9 +33,8 @@ const routes: Routes = [
     loadChildren: () => import('./admin/modals/editar-chocolate/editar-chocolate.module').then( m => m.EditarChocolatePageModule)
   },
   {
-    path: 'crear-repartidor',
-    loadChildren: () => import('./admin/crear-repartidor/crear-repartidor.module').then( m => m.CrearRepartidorPageModule)
-  }
+    path: 'perfil', component:PerfilComponent
+  },
 ];
 @NgModule({
   imports: [

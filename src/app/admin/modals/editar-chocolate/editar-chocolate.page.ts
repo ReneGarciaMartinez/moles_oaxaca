@@ -18,7 +18,7 @@ export class EditarChocolatePage implements OnInit {
   @Input() descripcion:any;
   @Input() img:any;
   @Input() editar:any;
-  
+ 
     chocolate: Chocolates = {
       id: '',
       nombre: '',

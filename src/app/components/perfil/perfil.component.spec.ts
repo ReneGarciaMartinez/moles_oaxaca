@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CrearRepartidorPage } from './crear-repartidor.page';
+import { PerfilComponent } from './perfil.component';
 
-describe('CrearRepartidorPage', () => {
-  let component: CrearRepartidorPage;
-  let fixture: ComponentFixture<CrearRepartidorPage>;
+describe('PerfilComponent', () => {
+  let component: PerfilComponent;
+  let fixture: ComponentFixture<PerfilComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CrearRepartidorPage ],
+      declarations: [ PerfilComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CrearRepartidorPage);
+    fixture = TestBed.createComponent(PerfilComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

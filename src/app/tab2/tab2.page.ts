@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Interface } from 'readline';
 import { Chocolates, Moles } from '../models/models';
+import { CarritoService } from '../services/carrito.service';
 import { FirestoreService } from '../services/firestore.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class Tab2Page {
   chocolates:Chocolates[]=[];
 
 
-  constructor(private firestore: FirestoreService) {}
+  constructor(private firestore: FirestoreService,private carritoService:CarritoService) {}
   ngOnInit(): void {
     this.getMoles();
     this.getChocolates();
@@ -40,5 +41,7 @@ export class Tab2Page {
       
     })
   }
-  
+  addCarritoMole(mole:Moles){
+    this.carritoService.addProducto(mole);
+  }
 }

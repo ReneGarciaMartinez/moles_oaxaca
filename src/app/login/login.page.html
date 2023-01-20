@@ -10,15 +10,15 @@
   <img alt="Silhouette of mountains" src="../../assets/img/LogoOaxacaDeAntequera.png" />
   <ion-item>
     <ion-label position="floating">Correo</ion-label>
-    <ion-input placeholder="Ingrese su usuario"></ion-input>
+    <ion-input [(ngModel)]="user.email" placeholder="Ingrese su correo"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Contraseña</ion-label>
-    <ion-input  type="password" placeholder="Ingrese su contraseña"></ion-input>
+    <ion-input [(ngModel)]="user.password" type="password" placeholder="Ingrese su contraseña"></ion-input>
   </ion-item>
 </ion-col>
 <ion-col size="5">
-  <ion-button shape="round">Ingresar</ion-button>
+  <ion-button  shape="round">Ingresar</ion-button>
 </ion-col> 
 
 
