@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'perfil', component:PerfilComponent
   },
+  {
+    path: 'crear-usuario',
+    loadChildren: () => import('./admin/crear-usuario/crear-usuario.module').then( m => m.CrearUsuarioPageModule)
+  },
 ];
 @NgModule({
   imports: [

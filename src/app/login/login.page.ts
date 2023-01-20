@@ -7,29 +7,59 @@ import { FirestoreService } from '../services/firestore.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/user.class';
 import { Console } from 'console';
+import { signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-
-
 export class LoginPage implements OnInit {
-user:User= new User();
-  constructor(public authSvc:FirebaseauthService, private router:Router) {}
+  user: User = new User();
+  constructor(public authSvc: FirebaseauthService, private router: Router) {}
 
-  ngOnInit() {
-  }
-  
-//   async onLogin(){
-//   const user= await this.authSvc.onLogin(this.user);
-//   if (user) {
-//     console.log("logiado");
-//     this.router.navigateByUrl('/productos')
+  ngOnInit() {}
+
+  login() {
+    console.log(this.user);
     
-//   }
-// }
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, this.user.email, this.user.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log('Logiado');
+        
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error.code);
+
+      });
+  }
+
+  logOut(){
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      console.log('Sesion cerrada');
+    }).catch((error) => {
+      // An error happened.
+      console.log(error);
+    });
+  }
+
+  //   async onLogin(){
+  //   const user= await this.authSvc.onLogin(this.user);
+  //   if (user) {
+  //     console.log("logiado");
+  //     this.router.navigateByUrl('/productos')
+
+  //   }
+  // }
 }
 
 /*
