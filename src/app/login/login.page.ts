@@ -9,6 +9,7 @@ import { User } from '../shared/user.class';
 import { Console } from 'console';
 import { signOut } from "firebase/auth";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Usuarios } from 'src/app/models/models';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,16 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 })
 export class LoginPage implements OnInit {
   user: User = new User();
-  constructor(public authSvc: FirebaseauthService, private router: Router) {}
+  usuario:Usuarios={
+    uid:'',
+    nombre:'',
+    apellido_paterno:'',
+    apellido_materno:'',
+    correo:'',
+    contra:'',
+    rol:''
+  }
+  constructor(public authSvc: FirebaseauthService, private router: Router,private toastController: ToastController) {}
 
   ngOnInit() {}
 
@@ -30,8 +40,8 @@ export class LoginPage implements OnInit {
         // Signed in
         const user = userCredential.user;
         console.log('Logiado');
-        
-        // ...
+        this.router.navigateByUrl('/tabs/tab2')
+        this.presentToast();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -39,18 +49,19 @@ export class LoginPage implements OnInit {
         console.log(error.code);
 
       });
+      
+  }
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Bienvenido!',
+      duration: 1500,
+      icon: 'globe'
+    });
+
+    await toast.present();
   }
 
-  logOut(){
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      console.log('Sesion cerrada');
-    }).catch((error) => {
-      // An error happened.
-      console.log(error);
-    });
-  }
+
 
   //   async onLogin(){
   //   const user= await this.authSvc.onLogin(this.user);
