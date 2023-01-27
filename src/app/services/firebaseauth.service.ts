@@ -11,6 +11,14 @@ public isLogged:any=false;
   constructor(public afauth:AngularFireAuth) { 
     afauth.authState.subscribe(user=>(this.isLogged=user))
     }
+    async getUid(){
+      const user = await this.afauth.currentUser;
+      if(user === null){
+        return null;
+      }else{
+        return user?.uid;
+      }
+    }
 /*
 async onLogin(user:User){
   try {

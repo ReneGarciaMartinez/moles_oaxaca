@@ -1,35 +1,63 @@
+import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Moles, Pedido } from '../models/models';
+import { ToastController } from '@ionic/angular';
+import { Moles, Pedido, ProductoPedido } from '../models/models';
 import { FirestoreService } from './firestore.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarritoService {
-private pedido:Pedido[] = [];
-path='Carrito/';
-  constructor(public firesoreService:FirestoreService) { 
-    this.loadCarrito();
+  private pedido:Pedido={
+    id:'aEAj6Ik5BGcBf6cq1GrV7q95IM73',
+    tienda:'',
+    productos:[],
+    precioTotal:0,
+    fecha:new Date()
   }
-  
-  loadCarrito(){
-
-  }
-  addProducto(producto:Moles){
-
-  }
-  getCarrito(){
-return this.pedido;
+  path = 'Carrito/';
+  uid='aEAj6Ik5BGcBf6cq1GrV7q95IM73';
+  tienda='1';
+  constructor(public firesoreService: FirestoreService,  private toastController: ToastController,) {
+   
   }
 
-  removeProducto(producto:any){
+ 
 
+
+  addProducto(producto: Moles) {
+    const item=this.pedido.productos.find(productoPedido=>{
+      return(productoPedido.producto.id===producto.id)
+    })
+    if (item!==undefined) {
+      item.cantidad++;
+    }else{
+      const add:ProductoPedido={
+        producto:producto,
+        cantidad:1
+      }
+      this.pedido.productos.push(add)
+    }
+     console.log('en add pedido',this.pedido) 
+     const path ='Usuarios/'+this.uid+'/'+this.path;
+     this.firesoreService.createDoc(this.pedido,path,this.pedido.id).then(()=>{
+      this.presentToast("Producto agregado");
+      
+     })
   }
-  realizarPedido(){
+  async presentToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000,
+      position: 'middle',
+    });
 
+    await toast.present();
   }
+ 
 
-  clearCarrito(){
+  removeProducto(producto: any) {}
+  realizarPedido() {}
 
-  }
+  clearCarrito() {}
 }

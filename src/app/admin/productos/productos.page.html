@@ -8,7 +8,7 @@
 </ion-toolbar>
 
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid class="eleccion">
     <ion-row>
       <ion-segment (ionChange)="segmentChanged($event)" mode="ios" [value]="valueSelected">
@@ -41,7 +41,7 @@
                   <ion-fab-button (click)="presentAlert(chocolate,'chocolate')" color="danger">
                     <ion-icon name="trash-outline"></ion-icon>
                   </ion-fab-button>
-                  <ion-fab-button (click)="openModalEditarChocolate(chocolate)"  color="warning">
+                  <ion-fab-button (click)="openModalEditarChocolate(chocolate)" color="warning">
                     <ion-icon name="create-outline"></ion-icon>
                   </ion-fab-button>
 
@@ -56,14 +56,15 @@
 
       </ion-row>
     </ion-grid>
-    <!--Boton agregar -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="openModalChocolate()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <!-- Termina boton agregar -->
+  
   </div>
+    <!--Boton agregar -->
+    <ion-fab *ngIf="valueSelected == 'chocolates'" slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="openModalChocolate()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <!-- Termina boton agregar -->
   <div *ngIf="valueSelected == 'moles'">
     <ion-grid>
       <ion-row>
@@ -95,12 +96,12 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <!--Boton agregar -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <!-- Termina boton agregar -->
+  </div>
+  <!--Boton agregar -->
+  <ion-fab *ngIf="valueSelected == 'moles'" slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="openModalMole()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <!-- Termina boton agregar -->
-  </div>
 </ion-content>

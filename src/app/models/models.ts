@@ -38,7 +38,7 @@ export interface Moles{
     precioTotal:number;
     fecha:Date;
   }
-  interface ProductoPedido{
+ export  interface ProductoPedido{
     producto:Moles;
     cantidad:number;
   }

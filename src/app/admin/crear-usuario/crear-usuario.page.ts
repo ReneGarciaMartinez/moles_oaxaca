@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 import { User } from 'src/app/shared/user.class';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Usuarios } from 'src/app/models/models';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -12,7 +14,17 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export class CrearUsuarioPage implements OnInit {
 
   user: User = new User();
-  constructor(public authSvc: FirebaseauthService, private router: Router) {}
+  usuario:Usuarios={
+    uid:'',
+    nombre:'',
+    apellido_paterno:'',
+    apellido_materno:'',
+    correo:'',
+    contra:'',
+    rol:''
+  }
+  
+  constructor(public authSvc: FirebaseauthService, private router: Router, private firestoreService:FirestoreService) {}
 
   ngOnInit() {
   }
@@ -20,10 +32,10 @@ export class CrearUsuarioPage implements OnInit {
   registro(){
 
 const auth = getAuth();
-createUserWithEmailAndPassword(auth, this.user.email, this.user.password)
+createUserWithEmailAndPassword(auth, this.usuario.correo, this.usuario.contra)
   .then((userCredential) => {
     // Signed in 
-    const user = userCredential.user;
+    const user = userCredential.user;    
     console.log(user);
     
     // ...
@@ -36,5 +48,10 @@ createUserWithEmailAndPassword(auth, this.user.email, this.user.password)
     
   });
   }
-
+//popover
+customPopoverOptions = {
+  header: 'Rol del usuario',
+  subHeader: 'Seleccione el rol',
+  message: 'Solo puedes seleccionar un rol',
+};
 }

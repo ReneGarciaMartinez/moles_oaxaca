@@ -38,8 +38,13 @@
                   <ion-icon (click)="addCarritoMole(chocolate)"  name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
+              <P>
+                ${{chocolate.precio}}
+              </P>
+             <P>
               {{chocolate.nombre}}
-              ${{chocolate.precio}}
+             </P> 
+             
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -61,8 +66,12 @@
                   <ion-icon  (click)="addCarritoMole(mole)"  name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
+              <h4>
+                ${{mole.precio}}
+              </h4>
+             <P>
               {{mole.nombre}}
-              ${{mole.precio}}
+             </P> 
             </ion-card-content>
           </ion-card>
         </ion-col>

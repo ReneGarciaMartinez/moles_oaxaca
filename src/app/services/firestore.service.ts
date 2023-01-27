@@ -7,6 +7,7 @@ import { Repartidor } from '../models/models';
   providedIn: 'root'
 })
 export class FirestoreService {
+  uid='aEAj6Ik5BGcBf6cq1GrV7q95IM73';
   createRepartidor(repartidor: any, path: string, uid: string) {
     const collection = this.firestore.collection(path);
     return collection.doc(uid).set(repartidor);
@@ -20,6 +21,18 @@ export class FirestoreService {
     const collection =this.firestore.collection<tipo>('Moles');
     return collection.valueChanges();
   }
+  getCarri<tipo>(){
+    const collection =this.firestore.collection<tipo>('/Usuarios/aEAj6Ik5BGcBf6cq1GrV7q95IM73/Carrito').doc(this.uid);
+    // console.log(collection);
+    return collection.valueChanges();
+  }
+
+  updateCarri(data:any,path:string,id:string){
+    console.log(data,path,id);
+    const collection = this.firestore.collection(path);
+    console.log(collection);
+    return collection.doc(id).update(data);
+  }
 
   getChocolates<tipo>(path: any){
 
@@ -29,6 +42,11 @@ export class FirestoreService {
 getDoc<tipo>(path:string,id:string){
   const collection =this.firestore.collection<tipo>(path);
     return collection.doc(id).valueChanges();
+}
+getCarrito<Pedido>(path: any){
+
+  const collection =this.firestore.collection<Pedido>(path);
+  return collection.valueChanges();
 }
   deleteMole(path:string, id:string){
     const collection= this.firestore.collection(path);
@@ -57,7 +75,12 @@ getDoc<tipo>(path:string,id:string){
     const collection = this.firestore.collection(path);
     return collection.doc(id).update(data);
   }
+  createDoc(data:any,path:string,id:string){
+    const collection = this.firestore.collection(path);
+    return collection.doc(id).set(data);
+  }
  getId(){
   return this.firestore.createId();
  }
+
 }

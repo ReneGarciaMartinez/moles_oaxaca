@@ -4,19 +4,23 @@ import { IonicModule } from '@ionic/angular';
 import { MenuComponent } from './menu/menu.component'; 
 import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './perfil/perfil.component';
+import { ItemCarritoComponent } from './item-carrito/item-carrito.component';
 
 @NgModule({
     declarations:[
         MenuComponent,
-        PerfilComponent
+        PerfilComponent,
+        ItemCarritoComponent
     ],
     exports:[
-        MenuComponent
+        MenuComponent,
+        ItemCarritoComponent
     ],
     imports:[
         CommonModule,
         IonicModule,
-        RouterModule
+        RouterModule,
+        
     ]
 })
 
