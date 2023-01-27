@@ -11,20 +11,21 @@
 <ion-content [fullscreen]="true">
   <ion-grid class="eleccion">
     <ion-row>
-      <ion-segment (ionChange)="segmentChanged($event)" mode="ios"[value]="valueSelected">
-        <ion-segment-button value="moles">
-          <ion-label>Moles</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="chocolates">
-          <ion-label>Chocolates</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-row>
-    <ion-row>
       <ion-searchbar  mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
 
     </ion-row>
   </ion-grid>
+    <ion-row>
+      <ion-segment (ionChange)="segmentChanged($event)" mode="ios"[value]="valueSelected">
+        <ion-segment-button value="moles">
+          <ion-label><strong>Moles</strong></ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="chocolates">
+          <ion-label><strong>Chocolates</strong></ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    
   <div *ngIf="valueSelected == 'chocolates'">
     <ion-grid>
       <ion-row>
@@ -66,12 +67,13 @@
                   <ion-icon  (click)="addCarritoMole(mole)"  name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
-              <h4>
-                ${{mole.precio}}
-              </h4>
-             <P>
-              {{mole.nombre}}
-             </P> 
+            
+             <h6>
+             <strong>{{mole.nombre}}</strong>
+             </h6> 
+             <small>
+              ${{mole.precio}}
+            </small>
             </ion-card-content>
           </ion-card>
         </ion-col>
