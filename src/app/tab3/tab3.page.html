@@ -9,18 +9,35 @@
 
 
 <ion-content [fullscreen]="true">
- 
-  <ion-card>
-    <div *ngIf="precioTotal==0">
-    <img alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2019/06/13/09/41/business-4271251_960_720.png" />
+  <div *ngIf="precioTotal==0" style="padding-top: 110px;">
+    <img alt="Silhouette of mountains" src="../../assets/img/Agregar_carrito.png" />
     <ion-card-header align="center">
       <ion-card-title>No tienes ningun articulo.</ion-card-title>
       <ion-card-subtitle>Agrega articulos para empezar.</ion-card-subtitle>
     </ion-card-header>
   </div>
+  <ion-card *ngIf="precioTotal>0">
+
     <ion-card-content>
 
+      <!-- <ion-item>
+  <ion-row>
+    <ion-col size="12">
+      <ion-label>Tienda: </ion-label>
+    </ion-col>
 
+    <ion-col size="12">
+      <ion-label>Dirección: </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-item> -->
+      <ion-item align="center">
+        <ion-row>
+          <ion-col >
+            <ion-button size="large" fill="outline" expand="block">Escanear tienda <ion-icon name="scan-outline"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
       <ion-list lines="inset">
         <ion-item *ngFor="let producto of pedidos; let i = index">
           <ion-thumbnail slot="start">
@@ -34,22 +51,26 @@
                 <ion-col><ion-label>{{producto.producto.nombre}}</ion-label></ion-col>
               </ion-row>
               <ion-row>
-                <ion-col><ion-label> <ion-badge slot="start">${{producto.producto.precio}}</ion-badge></ion-label></ion-col>
-                <ion-col>          </ion-col>
-                <ion-col>          </ion-col>
-                <ion-col><ion-label (click)="removeCarrito(producto.producto,i)" class="icono_eliminar"><ion-icon   name="trash-outline"></ion-icon></ion-label></ion-col>
-                
+                <ion-col><ion-label> <ion-badge
+                      slot="start">${{producto.producto.precio}}</ion-badge></ion-label></ion-col>
+                <ion-col> </ion-col>
+                <ion-col> </ion-col>
+                <ion-col><ion-label (click)="removeCarrito(producto.producto,i)" class="icono_eliminar"><ion-icon
+                      name="trash-outline"></ion-icon></ion-label></ion-col>
+
               </ion-row>
               <ion-row>
                 <ion-col class="cantidad" size="12">
-                  <ion-button class="boton_cantidad" (click)="decrement(producto.producto.id,producto.cantidad,i)">-</ion-button>
+                  <ion-button class="boton_cantidad"
+                    (click)="decrement(producto.producto.id,producto.cantidad,i)">-</ion-button>
                   <p>{{producto.cantidad}}</p>
-                  <ion-button class="boton_cantidad" (click)="increment(producto.producto.id,producto.cantidad,i)">+</ion-button>
+                  <ion-button class="boton_cantidad"
+                    (click)="increment(producto.producto.id,producto.cantidad,i)">+</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-label>
-      </ion-item>
+        </ion-item>
       </ion-list>
       <ion-grid>
         <ion-row>
@@ -57,10 +78,32 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="start">
-    <ion-fab-button *ngIf="precioTotal>0">
-      Total: $ {{precioTotal}}
-    </ion-fab-button>
-  </ion-fab>
-  <!-- <ion-text>{{pedido | json}}</ion-text> -->
+  
+
+  <!-- boton generar pedido-->
+
+
+
+
+  <ion-popover trigger="popover-button" [dismissOnSelect]="true" side="top" alignment="center">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item [button]="true" [detail]="false">Contado</ion-item>
+          <ion-item [button]="true" [detail]="false">Credito</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 </ion-content>
+<ion-row class="ion-align-items-center">
+  <ion-col size="3" class="ion-align-items-center">
+    <ion-badge style="font-size: large;" mode="ios" *ngIf="precioTotal>0"> Total: $ {{precioTotal}}</ion-badge>
+  </ion-col>
+  <ion-col size="6" >
+  </ion-col>
+  <ion-col size="3">
+     <ion-button expand="block" color="success" id="popover-button"> 
+      <ion-icon name="print-outline"></ion-icon></ion-button>
+    </ion-col>
+</ion-row>

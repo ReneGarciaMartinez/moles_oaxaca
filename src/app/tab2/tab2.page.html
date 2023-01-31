@@ -6,9 +6,11 @@
     <ion-icon name="cube-outline"></ion-icon> Productos
   </ion-title>
 </ion-toolbar>
+<ion-content [fullscreen]="true" >
+  <ion-row >
+    <ion-col size="12" >
 
-
-<ion-content [fullscreen]="true">
+ 
   <ion-grid class="eleccion">
     <ion-row>
       <ion-searchbar  mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
@@ -26,7 +28,7 @@
       </ion-segment>
     </ion-row>
     
-  <div *ngIf="valueSelected == 'chocolates'">
+  <div *ngIf="valueSelected == 'chocolates'" >
     <ion-grid>
       <ion-row>
   
@@ -81,6 +83,6 @@
     </ion-grid>
   </div>
 
-  
-
+</ion-col>
+</ion-row>
 </ion-content>

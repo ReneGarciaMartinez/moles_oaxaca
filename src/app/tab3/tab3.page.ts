@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Moles, Pedido,ProductoPedido } from '../models/models';
 import { CarritoService } from '../services/carrito.service';
 import { FirestoreService } from '../services/firestore.service';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -17,14 +18,14 @@ export class Tab3Page {
   all: any;
   precioTotal=0;
   uid = "aEAj6Ik5BGcBf6cq1GrV7q95IM73";
-  constructor(private firestore: FirestoreService,private carritoService:CarritoService
+  constructor(private firestore: FirestoreService,private carritoService:CarritoService,public popoverController: PopoverController
   ) {
-    
+    this.precioTotal=0;
+    this.loadCarrito();
   }
   ngOnInit(){
  
-    this.precioTotal=0;
-    this.loadCarrito();
+    
   }
   loadCarrito() {
     this.precioTotal=0;
@@ -65,7 +66,7 @@ console.log('precio total:',this.precioTotal);
 
   decrement(id: any, cantidad: number,i: any) {
     this.pedidos[i].cantidad = this.pedidos[i].cantidad-1;
-
+    this.precioTotal=0;
     if (this.pedidos[i].cantidad<=0) {
       this.removeCarrito(this.pedidos[i].producto,i);
     }else{
@@ -86,5 +87,8 @@ console.log('precio total:',this.precioTotal);
 removeCarrito(producto:any,index:any){
   this.carritoService.removeProducto(producto,index);
   this.precioTotal=0;
+}
+async abrirPopover(e: Event){
+
 }
 }

@@ -24,17 +24,17 @@ ion-toolbar {
 --background: #D77B2B;
   }
 
-  ion-fab-button::part(native) {
+  .boton-total {
     background-color: #711402;
     border-radius: 15px;
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,.3), 0px 1px 3px 1px rgba(0,0,0,.15);
     color: rgb(255, 255, 255);
-    width: 100px;
+    width: 120px;
     
   }
 
   ion-badge {
-    --background: rgb(184, 91, 5);
+    --background: #b85b05;
     --color: white;
     --padding-end: 20px;
     --padding-start: 20px;
