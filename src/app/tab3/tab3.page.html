@@ -11,11 +11,17 @@
 <ion-content [fullscreen]="true">
  
   <ion-card>
+    <div *ngIf="precioTotal==0">
+    <img alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2019/06/13/09/41/business-4271251_960_720.png" />
+    <ion-card-header align="center">
+      <ion-card-title>No tienes ningun articulo.</ion-card-title>
+      <ion-card-subtitle>Agrega articulos para empezar.</ion-card-subtitle>
+    </ion-card-header>
+  </div>
     <ion-card-content>
 
 
       <ion-list lines="inset">
-        <button (click)="loadCarrito()">lista</button>
         <ion-item *ngFor="let producto of pedidos; let i = index">
           <ion-thumbnail slot="start">
             <ion-avatar>
@@ -26,8 +32,13 @@
             <ion-grid>
               <ion-row class="ion-align-items-center">
                 <ion-col><ion-label>{{producto.producto.nombre}}</ion-label></ion-col>
-                <ion-col><ion-label class="icono_eliminar"><ion-icon   name="trash-outline"></ion-icon></ion-label></ion-col>
+              </ion-row>
+              <ion-row>
                 <ion-col><ion-label> <ion-badge slot="start">${{producto.producto.precio}}</ion-badge></ion-label></ion-col>
+                <ion-col>          </ion-col>
+                <ion-col>          </ion-col>
+                <ion-col><ion-label (click)="removeCarrito(producto.producto,i)" class="icono_eliminar"><ion-icon   name="trash-outline"></ion-icon></ion-label></ion-col>
+                
               </ion-row>
               <ion-row>
                 <ion-col class="cantidad" size="12">
@@ -42,12 +53,14 @@
       </ion-list>
       <ion-grid>
         <ion-row>
-          <br>
-          <br>
-          <ion-col>Total: {{precioTotal}}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+    <ion-fab-button *ngIf="precioTotal>0">
+      Total: $ {{precioTotal}}
+    </ion-fab-button>
+  </ion-fab>
   <!-- <ion-text>{{pedido | json}}</ion-text> -->
 </ion-content>

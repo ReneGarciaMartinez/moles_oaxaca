@@ -15,40 +15,48 @@ export class Tab3Page {
   pedido: any;
   pedidos: any;
   all: any;
-  precioTotal:number=0;
+  precioTotal=0;
   uid = "aEAj6Ik5BGcBf6cq1GrV7q95IM73";
   constructor(private firestore: FirestoreService,private carritoService:CarritoService
   ) {
-    this.loadCarrito();
+    
   }
   ngOnInit(){
  
-    
+    this.precioTotal=0;
+    this.loadCarrito();
   }
   loadCarrito() {
+    this.precioTotal=0;
     this.firestore.getCarri().subscribe((res: any)=>{
       
       console.log('esta es la respuesta de load',res);
 
       this.pedidos = res.productos;
       this.all = res;
-      this.precioTotal=this.all.precioTotal;
-      // for(const val of this.pedidos){
-      //   // console.log(val.pedidos.productos[0].producto.nombre);
-      //   console.log(val);
-      //   // this.pedido.push(val);
-      // }
-      // this.pedido=res;
+ 
+for (let index = 0; index < this.pedidos.length; index++) {
+  const precio = this.pedidos[index].producto.precio*this.pedidos[index].cantidad;
+  this.precioTotal=this.precioTotal+precio;
+console.log('precio:',precio);
+console.log('precio total:',this.precioTotal);
+
+  
+  
+  
+}
     })
   } 
   
   async increment(id: any, cantidad: number, i: any) {
     this.pedidos[i].cantidad=this.pedidos[i].cantidad+1;
     const path = "Usuarios/aEAj6Ik5BGcBf6cq1GrV7q95IM73/Carrito/";
+    this.precioTotal=0;
     this.firestore
       .updateCarri(this.all, path, this.uid)
       .then((res) => {
         console.log( id + 'Actualizado');
+        this.precioTotal=0;
       })
       .catch((error) => {        
         console.log(error);
@@ -57,17 +65,26 @@ export class Tab3Page {
 
   decrement(id: any, cantidad: number,i: any) {
     this.pedidos[i].cantidad = this.pedidos[i].cantidad-1;
+
+    if (this.pedidos[i].cantidad<=0) {
+      this.removeCarrito(this.pedidos[i].producto,i);
+    }else{
     const path = "Usuarios/aEAj6Ik5BGcBf6cq1GrV7q95IM73/Carrito/";
-    const identificador = "1";
     this.firestore
-      .updateCarri(this.all, path, identificador)
+      .updateCarri(this.all, path, this.uid)
       .then((res) => {
         console.log( id + 'Actualizado');
+        this.precioTotal=0;
+        
       })
       .catch((error) => {        
         console.log(error);
       });
+    }
   }
  
-
+removeCarrito(producto:any,index:any){
+  this.carritoService.removeProducto(producto,index);
+  this.precioTotal=0;
+}
 }

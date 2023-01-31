@@ -43,5 +43,6 @@ export class Tab2Page {
   }
   addCarritoMole(mole:Moles){
     this.carritoService.addProducto(mole);
+    this.firestore.getCarri();
   }
 }

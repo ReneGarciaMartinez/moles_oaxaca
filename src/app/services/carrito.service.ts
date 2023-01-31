@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { log } from 'console';
 import { Moles, Pedido, ProductoPedido } from '../models/models';
 import { FirestoreService } from './firestore.service';
 
@@ -56,7 +57,16 @@ export class CarritoService {
   }
  
 
-  removeProducto(producto: any) {}
+  removeProducto(producto: any,index:any) {
+    
+    this.pedido.productos.splice(index,1);
+    console.log('index:',index);
+    
+    const path='Usuarios/'+this.uid+'/Carrito';
+    this.firesoreService.createDoc(this.pedido,path,this.uid).then(()=>{
+      console.log('eliminado');
+    })
+  }
   realizarPedido() {}
 
   clearCarrito() {}
