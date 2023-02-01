@@ -20,7 +20,11 @@ export class CarritoService {
   uid='aEAj6Ik5BGcBf6cq1GrV7q95IM73';
   tienda='1';
   constructor(public firesoreService: FirestoreService,  private toastController: ToastController,) {
-   
+    this.firesoreService.getCarri().subscribe((res: any)=>{
+      this.pedido = res;
+      console.log("Prueba: ",this.pedido);
+    });
+
   }
 
  

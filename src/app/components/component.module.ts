@@ -5,22 +5,26 @@ import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ItemCarritoComponent } from './item-carrito/item-carrito.component';
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { ScannerComponent } from './scanner/scanner.component';
 
 @NgModule({
     declarations:[
         MenuComponent,
         PerfilComponent,
-        ItemCarritoComponent
+        ItemCarritoComponent,
+        ScannerComponent
     ],
     exports:[
         MenuComponent,
-        ItemCarritoComponent
+        ItemCarritoComponent,
+        ScannerComponent
     ],
     imports:[
         CommonModule,
         IonicModule,
         RouterModule,
-        
+        NgxScannerQrcodeModule
     ]
 })
 
