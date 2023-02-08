@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Bienvenido René</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card_principal">
+    <ion-card-header>
+      <ion-card-title>Vamos a comenzar</ion-card-title>
+      <ion-card-subtitle>Elije una opción</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-card color="light">
+            <img alt="Silhouette of mountains" src="../../../assets/img/undraw_Order_confirmed_re_g0if.png" />
+            <ion-card-header>
+              <ion-card-title>Escanear Qr</ion-card-title>
+              <ion-card-subtitle>escanear un codigo de tienda para empezar a generar una venta.</ion-card-subtitle>
+            </ion-card-header>
+          
+            <ion-card-content>
+              <ion-button [routerLink]="['/scanner']" routerLinkActive="router-link-active" expand="block">Escanear Qr</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+  
+        <ion-item>
+          <ion-card color="light">
+            <img alt="Silhouette of mountains" src="../../../assets/img/undraw_Deliveries_2r4y.png" />
+            <ion-card-header>
+              <ion-card-title>Levantar Pedido</ion-card-title>
+              <ion-card-subtitle>Genera un pedido para ser entregado después.</ion-card-subtitle>
+            </ion-card-header>
+          
+            <ion-card-content>
+              <ion-button (click)="levantarPedido()" expand="block">Levantar pedido</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-item> 
+      
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

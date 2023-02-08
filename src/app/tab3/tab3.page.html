@@ -17,7 +17,9 @@
     </ion-card-header>
   </div>
   <ion-card *ngIf="precioTotal>0">
-
+    <ion-card-header color="light">
+      <ion-card-title>Productos</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
 
       <!-- <ion-item>
@@ -31,15 +33,7 @@
     </ion-col>
   </ion-row>
 </ion-item> -->
-      <app-scanner></app-scanner>
-
-      <ion-item align="center">
-        <ion-row>
-          <ion-col >
-            <ion-button size="large" fill="outline" expand="block">Escanear tienda <ion-icon name="scan-outline"></ion-icon></ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-item>
+      <!-- <app-scanner></app-scanner> -->
       <ion-list lines="inset">
         <ion-item *ngFor="let producto of pedidos; let i = index">
           <ion-thumbnail slot="start">
@@ -105,7 +99,7 @@
   <ion-col size="6" >
   </ion-col>
   <ion-col size="3">
-     <ion-button expand="block" color="success" id="popover-button"> 
+     <ion-button *ngIf="precioTotal>0" expand="block" color="success" id="popover-button"> 
       <ion-icon name="print-outline"></ion-icon></ion-button>
     </ion-col>
 </ion-row>

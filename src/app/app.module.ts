@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/component.module';
 import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(),

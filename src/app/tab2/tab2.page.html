@@ -41,12 +41,16 @@
                   <ion-icon (click)="addCarritoMole(chocolate)"  name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
-              <P>
-                ${{chocolate.precio}}
-              </P>
-             <P>
+            <h2>
               {{chocolate.nombre}}
-             </P> 
+            </h2>
+             
+            <ion-row>
+              <h2 class="precio">
+                Precio:  
+              </h2>
+              <h2>  ${{chocolate.precio}}</h2>
+             </ion-row>    
              
             </ion-card-content>
           </ion-card>
@@ -63,19 +67,24 @@
         <ion-col *ngFor="let mole of moles" size="6">
           <ion-card class="card">
             <img alt="Silhouette of mountains" src="{{mole.img}}" />
-            <ion-card-content>
+            <ion-card-content >
               <ion-fab class="boton_agregar">
                 <ion-fab-button >
                   <ion-icon  (click)="addCarritoMole(mole)"  name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>
             
-             <h6>
-             <strong>{{mole.nombre}}</strong>
-             </h6> 
-             <small>
-              ${{mole.precio}}
-            </small>
+             <h2>
+             {{mole.nombre}}
+             </h2> 
+             <ion-row>
+              <h2 class="precio">
+                Precio:  
+              </h2>
+              <h2>  ${{mole.precio}}</h2>
+             </ion-row>
+             
+           
             </ion-card-content>
           </ion-card>
         </ion-col>

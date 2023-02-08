@@ -6,12 +6,24 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item><button [routerLink]="['/']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Tiendas</button></ion-item>
+      <ion-menu-toggle> 
+      <ion-item><button [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Tiendas</button></ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle> 
       <ion-item><button [routerLink]="['/productos']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Productos Admin</button></ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle> 
       <ion-item><button [routerLink]="['/tabs/tab2']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Productos Repartidor</button></ion-item>
-      <ion-item><button [routerLink]="['/']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Usuarios</button></ion-item>
-      <ion-item><button [routerLink]="['/']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Pedidos</button></ion-item>
-      <ion-item> <ion-button (click)="logOut()" class="btn-danger" shape="round"><ion-icon name="power-outline"></ion-icon></ion-button></ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle> 
+      <ion-item><button [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Usuarios</button></ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle> 
+      <ion-item><button [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Pedidos</button></ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle> 
+      <ion-item> <ion-button [routerLink]="['/login']" routerLinkActive="router-link-active" class="btn-danger" shape="round"><ion-icon name="power-outline"></ion-icon></ion-button></ion-item>
+    </ion-menu-toggle>
     </ion-list>
   </ion-content>
 </ion-menu>

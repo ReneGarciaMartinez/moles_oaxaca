@@ -46,9 +46,16 @@
                   </ion-fab-button>
 
                 </ion-fab-list>
-              </ion-fab>
-              {{chocolate.nombre}}
-              ${{chocolate.precio}}
+              </ion-fab><h2>
+                {{chocolate.nombre}}
+              </h2>
+               
+              <ion-row>
+                <h2 class="precio">
+                  Precio:  
+                </h2>
+                <h2>  ${{chocolate.precio}}</h2>
+               </ion-row>  
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -89,8 +96,15 @@
                 </ion-fab-list>
               </ion-fab>
 
-              {{mole.nombre}}
-              ${{mole.precio}}
+              <h2>
+                {{mole.nombre}}
+                </h2> 
+                <ion-row>
+                 <h2 class="precio">
+                   Precio:  
+                 </h2>
+                 <h2>  ${{mole.precio}}</h2>
+                </ion-row>
             </ion-card-content>
           </ion-card>
         </ion-col>

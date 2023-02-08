@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
@@ -38,6 +42,14 @@ const routes: Routes = [
   {
     path: 'crear-usuario',
     loadChildren: () => import('./admin/crear-usuario/crear-usuario.module').then( m => m.CrearUsuarioPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./repartidor/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'scanner',
+    loadChildren: () => import('./repartidor/scanner/scanner.module').then( m => m.ScannerPageModule)
   },
 ];
 @NgModule({

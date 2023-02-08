@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
         // Signed in
         const user = userCredential.user;
         console.log('Logiado');
-        this.router.navigateByUrl('/tabs/tab2')
+        this.router.navigateByUrl('home')
         this.presentToast();
       })
       .catch((error) => {

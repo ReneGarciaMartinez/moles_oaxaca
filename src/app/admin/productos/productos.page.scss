@@ -1,14 +1,19 @@
+ion-content{
+    --background:rgb(243, 243, 243);
+}
 .card{
     border-color: black;
     border-radius: 30px;
-    background-color: #f1f1f1;
-    color: black;
-    height: 230px;
+    background-color: #D77B2B;
+    color: rgb(255, 255, 255);
+    height: 240px;
     box-shadow: 10px 10px 5px #dd85379d;
 }
 .boton_agregar{
     top: -40px;
-    left: 88px;
+    left: 72px;
+    position:absolute;
+     z-index:7;
 }
 img{
     width: 145px;
@@ -33,4 +38,8 @@ ion-toolbar {
     --box-shadow: 0px 1px 2px 0px rgba(0,0,0,.3), 0px 1px 3px 1px rgba(0,0,0,.15);
     --color: rgb(255, 255, 255);
   }
+  .precio{
+    color: #711402;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   }
 
