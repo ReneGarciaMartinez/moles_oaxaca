@@ -1,5 +1,7 @@
 {
   "name": "moles_oaxaca",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

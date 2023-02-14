@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scanner.page.scss'],
 })
 export class ScannerPage implements OnInit {
-
+  qrCodeString:string="codigo secreto";
   constructor() { }
 
   ngOnInit() {

@@ -20,13 +20,14 @@
         </ion-segment-button>
       </ion-segment>
     </ion-row>
-    <ion-row>
-      <ion-searchbar mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
-
-    </ion-row>
+  
   </ion-grid>
   <div *ngIf="valueSelected == 'chocolates'">
     <ion-grid>
+      <ion-row>
+        <ion-searchbar mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
+      </ion-row>
+
       <ion-row>
 
         <ion-col *ngFor="let chocolate of chocolates" size="6">
@@ -74,6 +75,9 @@
     <!-- Termina boton agregar -->
   <div *ngIf="valueSelected == 'moles'">
     <ion-grid>
+      <ion-row>
+        <ion-searchbar mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
+      </ion-row>
       <ion-row>
 
         <ion-col *ngFor="let mole of moles" size="6">

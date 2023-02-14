@@ -1,14 +1,14 @@
-<div style="width: 50%;">
+<!-- <div style="width: 50%;">
   <input #file2 type="file" (change)="onSelects2(file2.files)" [multiple]="'multiple'"
   [accept]="'.jpg, .png, .gif, .jpeg'" class="btn btn-success my-2" />
 
   <ngx-scanner-qrcode #action="scanner" [config]="config"
       (event)="onEvent($event,action,'stop')"></ngx-scanner-qrcode>
 
-  <!-- loading -->
+   loading 
   <p *ngIf="action.isLoading">⌛ Loading...</p>
 
-  <!-- start/stop -->
+ 
   <button class="btn" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart"
       [disabled]="action.isLoading">
       <img *ngIf="!action.isStart" (click)="handle(action, 'start')"
@@ -16,4 +16,4 @@
       <img *ngIf="action.isStart" (click)="handle(action, 'stop')"
           src="https://img.icons8.com/ios/50/000000/no-camera--v1.png" width="30px" />
   </button>
-</div>
+</div> -->

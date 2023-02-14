@@ -51,6 +51,10 @@ const routes: Routes = [
     path: 'scanner',
     loadChildren: () => import('./repartidor/scanner/scanner.module').then( m => m.ScannerPageModule)
   },
+  {
+    path: 'tiendas',
+    loadChildren: () => import('./pages/tiendas/tiendas.module').then( m => m.TiendasPageModule)
+  },
 ];
 @NgModule({
   imports: [
