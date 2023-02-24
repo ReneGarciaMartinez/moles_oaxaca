@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TiendasPageRoutingModule } from './tiendas-routing.module';
+import { TiendaQrPageRoutingModule } from './tienda-qr-routing.module';
 
-import { TiendasPage } from './tiendas.page';
+import { TiendaQrPage } from './tienda-qr.page';
 import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     CommonModule,
     FormsModule,
     IonicModule,
-    TiendasPageRoutingModule,
+    TiendaQrPageRoutingModule,
     QRCodeModule
   ],
-  declarations: [TiendasPage]
+  declarations: [TiendaQrPage]
 })
-export class TiendasPageModule {}
+export class TiendaQrPageModule {}

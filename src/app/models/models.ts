@@ -46,3 +46,10 @@ export interface Moles{
     email:string;
     password:string;
 }
+export interface Tienda{
+  id:string;
+  nombre:string;
+  responsable:string;
+  direccion:string;
+  telefono:string;
+}

@@ -55,6 +55,18 @@ const routes: Routes = [
     path: 'tiendas',
     loadChildren: () => import('./pages/tiendas/tiendas.module').then( m => m.TiendasPageModule)
   },
+  {
+    path: 'agregar-tienda',
+    loadChildren: () => import('./modals/agregar-tienda/agregar-tienda.module').then( m => m.AgregarTiendaPageModule)
+  },
+  {
+    path: 'editar-tienda',
+    loadChildren: () => import('./modals/editar-tienda/editar-tienda.module').then( m => m.EditarTiendaPageModule)
+  },
+  {
+    path: 'tienda-qr',
+    loadChildren: () => import('./modals/tienda-qr/tienda-qr.module').then( m => m.TiendaQrPageModule)
+  },
 ];
 @NgModule({
   imports: [

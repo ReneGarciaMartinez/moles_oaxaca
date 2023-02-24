@@ -5,25 +5,46 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <ion-card-title>Hola</ion-card-title>
+          <ion-card-subtitle>René Garcia</ion-card-subtitle>
+        </ion-col>
+        <ion-col size="4">
+          <!-- <ion-button   fill="clear" [routerLink]="['/login']" routerLinkActive="router-link-active" expand="full" class="btn-danger" shape="round"><ion-icon name="power-outline"></ion-icon></ion-button> -->
+          <ion-toggle color="success" [checked]="true"></ion-toggle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
     <ion-list>
       <ion-menu-toggle> 
-      <ion-item><button [routerLink]="['/tiendas']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Tiendas</button></ion-item>
+      <ion-button   fill="clear"  [routerLink]="['/tiendas']" routerLinkActive="router-link-active"  expand="full"  >Tiendas</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 
-      <ion-item><button [routerLink]="['/productos']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Productos Admin</button></ion-item>
+      <ion-button   fill="clear" [routerLink]="['/productos']" routerLinkActive="router-link-active"  expand="full"  >Productos Admin</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 
-      <ion-item><button [routerLink]="['/tabs/tab2']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Productos Repartidor</button></ion-item>
+      <ion-button  fill="clear"  [routerLink]="['/tabs/tab2']" routerLinkActive="router-link-active"  expand="full" >Productos Repartidor</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 
-      <ion-item><button [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Usuarios</button></ion-item>
+      <ion-button  fill="clear"  [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full"  >Usuarios</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 
-      <ion-item><button [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full" fill="outline" >Pedidos</button></ion-item>
-    </ion-menu-toggle>
-    <ion-menu-toggle> 
-      <ion-item> <ion-button [routerLink]="['/login']" routerLinkActive="router-link-active" class="btn-danger" shape="round"><ion-icon name="power-outline"></ion-icon></ion-button></ion-item>
+      <ion-button  fill="clear" [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full">Pedidos</ion-button>
     </ion-menu-toggle>
     </ion-list>
   </ion-content>
+
+ 
+    <ion-grid align="center" >
+      <ion-row>
+        <ion-col>
+          <img alt="Silhouette of mountains" src="../../../assets/img/LogoOaxacaDeAntequera.png" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+  
 </ion-menu>

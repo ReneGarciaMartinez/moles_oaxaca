@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Impresion de Qr</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Este es el Qr de la tienda</ion-card-title>
+      <ion-card-subtitle>{{nombre}}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content align="center">
+      <qrcode [qrdata]="qrCodeString" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </ion-card-content>
+    <ion-button fill="clear" (click)="closeModal()">Cerrar</ion-button>
+    
+  </ion-card>
+
+  
+</ion-content>

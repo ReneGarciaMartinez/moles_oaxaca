@@ -82,5 +82,20 @@ getCarrito<Pedido>(path: any){
  getId(){
   return this.firestore.createId();
  }
+// Tiendas
 
+getTiendas<tipo>(path: any){
+
+  const collection =this.firestore.collection<tipo>('Tiendas');
+  return collection.valueChanges();
+}
+deleteTienda(path:string, id:string){
+  const collection= this.firestore.collection(path);
+  return collection.doc(id).delete();
+
+}
+createTienda(data:any,path:string,id:string){
+  const collection = this.firestore.collection(path);
+  return collection.doc(id).set(data);
+}
 }

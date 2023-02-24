@@ -28,14 +28,14 @@
   
         <ion-item>
           <ion-card color="light">
-            <img alt="Silhouette of mountains" src="../../../assets/img/undraw_Deliveries_2r4y.png" />
+            <img alt="Silhouette of mountains" src="../../../assets/img/undraw_App_installation_re_h36x.png" />
             <ion-card-header>
-              <ion-card-title>Levantar Pedido</ion-card-title>
-              <ion-card-subtitle>Genera un pedido para ser entregado después.</ion-card-subtitle>
+              <ion-card-title>Tiendas</ion-card-title>
+              <ion-card-subtitle>Agrega una nueva tienda o administra las tiendas disponibles.</ion-card-subtitle>
             </ion-card-header>
           
             <ion-card-content>
-              <ion-button (click)="levantarPedido()" expand="block">Levantar pedido</ion-button>
+              <ion-button [routerLink]="['/tiendas']" routerLinkActive="router-link-active" expand="block">Tiendas</ion-button>
             </ion-card-content>
           </ion-card>
         </ion-item> 

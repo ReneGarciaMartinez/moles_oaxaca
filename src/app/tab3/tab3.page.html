@@ -45,6 +45,7 @@
             <ion-grid>
               <ion-row class="ion-align-items-center">
                 <ion-col><ion-label>{{producto.producto.nombre}}</ion-label></ion-col>
+                <ion-col><ion-label>{{producto.producto.descripcion}}</ion-label></ion-col>
               </ion-row>
               <ion-row>
                 <ion-col><ion-label> <ion-badge
@@ -81,16 +82,7 @@
 
 
 
-  <ion-popover trigger="popover-button" [dismissOnSelect]="true" side="top" alignment="center">
-    <ng-template>
-      <ion-content>
-        <ion-list>
-          <ion-item [button]="true" [detail]="false">Contado</ion-item>
-          <ion-item [button]="true" [detail]="false">Credito</ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
+
 </ion-content>
 <ion-row class="ion-align-items-center">
   <ion-col size="3" class="ion-align-items-center">
@@ -98,8 +90,13 @@
   </ion-col>
   <ion-col size="6" >
   </ion-col>
-  <ion-col size="3">
-     <ion-button *ngIf="precioTotal>0" expand="block" color="success" id="popover-button"> 
-      <ion-icon name="print-outline"></ion-icon></ion-button>
+  <ion-col *ngIf="precioTotal>0"  size="3">
+      <ion-button color="success" expand="block" id="top-center"> <ion-icon name="print-outline"></ion-icon></ion-button>
+      <ion-popover trigger="top-center" side="top" alignment="center " [dismissOnSelect]="true">
+        <ng-template>
+         <ion-button (click)="CompraContado()" fill="clear" expand="block">Contado</ion-button>
+         <ion-button fill="clear" expand="block">Credito</ion-button>
+        </ng-template>
+      </ion-popover>
     </ion-col>
 </ion-row>

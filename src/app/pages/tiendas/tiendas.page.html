@@ -19,92 +19,29 @@
 
     <ion-card-content>
       <ion-list>
-        <ion-item>
+        <ion-item *ngFor="let tienda of tiendas">
             <ion-grid>
               <ion-row class="ion-align-items-center rowsito">
                 <ion-col size="9">
                   <ion-card class="card_tienda">
                     <ion-card-header>
-                      <ion-card-title class="titulo_tienda">Abarrotes Tere</ion-card-title>
-                      <ion-card-subtitle>Benito juarez #3</ion-card-subtitle>
+                      <ion-card-title class="titulo_tienda">{{tienda.nombre}}</ion-card-title>
+                      <ion-card-subtitle>{{tienda.direccion}}</ion-card-subtitle>
+                      <ion-card-subtitle>{{tienda.responsable}}</ion-card-subtitle>
                     </ion-card-header>
 
                     <ion-card-content>
-                      Celular:9512164607
+                      Celular:{{tienda.telefono}}
                     </ion-card-content>
                   </ion-card>
                 </ion-col>
                 <ion-col size="3">
-                  <ion-button size="small" fill="outline"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-                  <ion-button size="small" color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
-                  <ion-button size="small" color="success" fill="outline"><ion-icon name="print"></ion-icon></ion-button>
+                  <ion-button size="small" fill="clear" size="large" (click)="openModalEditarTienda(tienda)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+                  <ion-button size="small" color="danger" fill="clear" size="large" (click)="presentAlert(tienda)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                  <ion-button size="small" color="success" fill="clear" size="large" (click)="openModalTiendaQR(tienda)"><ion-icon name="print"></ion-icon></ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
-        </ion-item>
-
-
-
-
-
-
-        <ion-item>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Abarrotes Tere</ion-card-title>
-              <ion-card-subtitle>Benito juarez #3</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Celular:9512164607
-            </ion-card-content>
-          </ion-card>
-          <ion-button size="small" fill="outline"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-          <ion-button size="small" color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
-        </ion-item>
-        <ion-item>
-
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Abarrotes La esquina</ion-card-title>
-              <ion-card-subtitle>Benito juarez #3</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Celular:9512164607
-            </ion-card-content>
-          </ion-card>
-          <ion-button size="small" fill="outline"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-          <ion-button size="small" color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
-
-        </ion-item>
-        <ion-item>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Abarrotes Teresss</ion-card-title>
-              <ion-card-subtitle>Benito juarez #3</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Celular:9512164607
-            </ion-card-content>
-          </ion-card>
-          <ion-button size="small" fill="outline"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-          <ion-button size="small" color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Abarrotes Jaun</ion-card-title>
-              <ion-card-subtitle>Benito juarez #3</ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Celular:9512164607
-            </ion-card-content>
-          </ion-card>
-          <ion-button size="small" fill="outline"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-          <ion-button size="small" color="danger" fill="outline"><ion-icon name="trash-outline"></ion-icon></ion-button>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -112,7 +49,7 @@
 
   <!-- boton de agregar -->
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
+    <ion-fab-button (click)="openModalTienda()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

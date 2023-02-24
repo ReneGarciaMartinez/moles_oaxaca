@@ -13,6 +13,7 @@ export class Tab3Page {
 
   count = 0;
   // pedido:Pedido[]=[];
+  tienda:any;
   pedido: any;
   pedidos: any;
   all: any;
@@ -30,24 +31,18 @@ export class Tab3Page {
   loadCarrito() {
     this.precioTotal = 0;
     this.firestore.getCarri().subscribe((res: any) => {
-      console.log('esta es la respuesta de load', res);
-
       this.pedidos = res.productos;
+      
       this.all = res;
       let suma = 0;
       let precio = 0;
-      console.log('precio:', precio);
-      console.log('suma:', suma);
       // console.log('precio total:', this.precioTotal);
       for (let index = 0; index < this.pedidos.length; index++) {
         precio = 0;
         precio = this.pedidos[index].producto.precio * this.pedidos[index].cantidad;
         suma = suma + precio;
-        console.log('suma:', suma);
-        console.log('precio:', precio);
       }
       this.precioTotal = suma;
-      console.log('precio total:', this.precioTotal);
     });
   }
 
@@ -89,5 +84,15 @@ export class Tab3Page {
     this.carritoService.removeProducto(producto, index);
     this.precioTotal = 0;
   }
-  async abrirPopover(e: Event) {}
+
+  CompraContado(){
+    // console.log("estamos en la funcion Compra de contado");
+    // this.pedidos.precioTotal=this.precioTotal;
+    // console.log("pedidos:",this.pedidos);
+    
+    // console.log("precio Total;",this.precioTotal);
+    
+    
+    
+  }
 }
