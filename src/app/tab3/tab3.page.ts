@@ -32,7 +32,6 @@ export class Tab3Page {
     this.precioTotal = 0;
     this.firestore.getCarri().subscribe((res: any) => {
       this.pedidos = res.productos;
-      
       this.all = res;
       let suma = 0;
       let precio = 0;

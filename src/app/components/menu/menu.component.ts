@@ -29,11 +29,11 @@ export class MenuComponent implements OnInit {
 
     this.authSvc.stateUser().subscribe(res=>{
       if (res) {
-        console.log('esta logeado');
+        
         this.login=true;
         this.getDatosUser(res.uid);
       }else{
-        console.log('no esta logeado');
+      
         this.login=false;
       }
     })
@@ -49,7 +49,7 @@ export class MenuComponent implements OnInit {
     const path='Usuarios';
     const id=uid;
    this.firestore.getDoc<Usuarios>(path,id).subscribe(res=>{
-    console.log('datos: ',res);
+   
     if (res) {
       this.datos=res;
     }

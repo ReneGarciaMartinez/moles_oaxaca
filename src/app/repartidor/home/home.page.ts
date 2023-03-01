@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { ExperienciaService } from 'src/app/services/experiencia.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
+
 
 @Component({
   selector: 'app-home',
@@ -10,8 +13,10 @@ import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 export class HomePage implements OnDestroy {
   resultadoEscaner: any;
   document:any;
+  path='';
+  visible:string='show';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private experiencia: ExperienciaService, private firestoreService:FirestoreService) {}
 
   async checkPermission(): Promise<boolean | any> {
     try {
@@ -29,29 +34,40 @@ export class HomePage implements OnDestroy {
 
 
   async startScan() {
+    
     try {
       const permission = await this.checkPermission();
       if (!permission) {
-        return;
+        return console.log('hay permiso');
       }
       await BarcodeScanner.hideBackground();
-      this.document.querySelector('body').classList.add('scanner-active');
+      document.querySelector('body')?.classList.add('scanner-active');
+      this.visible='hidden';
       const result = await BarcodeScanner.startScan();
       console.log(result);
+      this.visible='show';
+      BarcodeScanner.showBackground();
       if (result?.hasContent) {
         this.resultadoEscaner = result.content;
+        document.querySelector('body')?.classList.remove('scanner-active');
         console.log(this.resultadoEscaner);
-        BarcodeScanner.showBackground();
-        this.document.querySelector('body').classList.remove('scanner-active');
+        this.CodigoEscaneado();
       }
     } catch (error) {
-      console.log(error);
+      console.log("Este es el error",error);
       this.stopScan();
     }
   }
+  CodigoEscaneado() {
+    this.router.navigateByUrl('tabs/tab2');
+    this.experiencia.presentToast('Escaneado con exito');
+  
+  }
   stopScan() {
+    this.visible='show';
     BarcodeScanner.showBackground();
     BarcodeScanner.stopScan();
+    document.querySelector('body')?.classList.remove('scanner-active');
   }
 
   ngOnDestroy():void {

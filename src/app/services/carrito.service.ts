@@ -18,7 +18,7 @@ export class CarritoService {
   }
   path = 'Carrito/';
   uid='aEAj6Ik5BGcBf6cq1GrV7q95IM73';
-  tienda='1';
+  tienda='';
   constructor(public firesoreService: FirestoreService,  private toastController: ToastController,) {
     this.firesoreService.getCarri().subscribe((res: any)=>{
       this.pedido = res;
@@ -26,10 +26,6 @@ export class CarritoService {
     });
 
   }
-
- 
-
-
   addProducto(producto: Moles) {
     const item=this.pedido.productos.find(productoPedido=>{
       return(productoPedido.producto.id===producto.id)

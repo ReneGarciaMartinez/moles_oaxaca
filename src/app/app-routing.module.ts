@@ -67,6 +67,10 @@ const routes: Routes = [
     path: 'tienda-qr',
     loadChildren: () => import('./modals/tienda-qr/tienda-qr.module').then( m => m.TiendaQrPageModule)
   },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./admin/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Usuarios</ion-card-title>
+      <ion-card-subtitle>Estos son los usuarios disponibles</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-card color="medium">
+          <ion-item>
+            <ion-toggle slot="start" color="success" [enableOnOffLabels]="true"></ion-toggle>
+            <ion-icon size="large" name="car-outline"></ion-icon>
+            <ion-icon slot="end" name="close"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-label>Nombre: René Eliut Garcia Martinez </ion-label>
+                </ion-col>
+
+              </ion-row>
+              <ion-row>
+                <ion-col size="10"><ion-label>Celular: 9512162607</ion-label></ion-col>
+                <ion-col size="2"><ion-icon size="large" name="pencil"></ion-icon></ion-col>
+              </ion-row>
+
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+
+
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
