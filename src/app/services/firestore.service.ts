@@ -39,9 +39,8 @@ export class FirestoreService {
     const collection =this.firestore.collection<tipo>('Chocolates');
     return collection.valueChanges();
   }
-getDoc<tipo>(path:string,id:string){
-  const collection =this.firestore.collection<tipo>(path);
-    return collection.doc(id).valueChanges();
+getDoc<tipo>(path:string,id:any){
+    return this.firestore.collection(path).doc<tipo>(id).valueChanges();
 }
 getCarrito<Pedido>(path: any){
 
@@ -75,7 +74,7 @@ getCarrito<Pedido>(path: any){
     const collection = this.firestore.collection(path);
     return collection.doc(id).update(data);
   }
-  createDoc(data:any,path:string,id:string){
+  createDoc(data:any,path:string,id:any){
     const collection = this.firestore.collection(path);
     return collection.doc(id).set(data);
   }

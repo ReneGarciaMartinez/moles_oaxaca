@@ -14,7 +14,8 @@ import { EditarChocolatePage } from '../modals/editar-chocolate/editar-chocolate
 })
 export class ProductosPage implements OnInit {
   valueSelected: string = 'moles';
-
+  MoleBuscado:any;
+  ChocolateBuscado:any;
   moles: Moles[] = [ ];
   newMole: Moles[] = [{
     id:'',
@@ -44,11 +45,13 @@ export class ProductosPage implements OnInit {
   getMoles() {
     this.firestore.getMoles<Moles>('Moles/').subscribe((res) => {
       this.moles = res;
+      this.MoleBuscado=this.moles;
     });
   }
   getChocolates() {
     this.firestore.getChocolates<Chocolates>('Chocolates/').subscribe((res) => {
       this.chocolates = res;
+      this.ChocolateBuscado=this.chocolates;
     });
   }
   deleteMole(mole: Moles) {
@@ -139,5 +142,26 @@ export class ProductosPage implements OnInit {
     
     
   }
- 
+  buscador(event:any){
+    const text= event.target.value;  
+    if (this.valueSelected=='moles') {
+      if (text && text.trim()!='') {
+        this.MoleBuscado=this.moles.filter((mole:any)=>{
+          return(mole.nombre.toLowerCase().indexOf(text.toLowerCase())>-1)
+        })
+      }else{
+        this.MoleBuscado=this.moles;
+      }
+    } else {
+      if (text && text.trim()!='') {
+        this.ChocolateBuscado=this.chocolates.filter((chocolate:any)=>{
+          return(chocolate.nombre.toLowerCase().indexOf(text.toLowerCase())>-1)
+        })
+      }else{
+        this.ChocolateBuscado=this.chocolates;
+      }
+    }  
+  
+  }
+  
 }

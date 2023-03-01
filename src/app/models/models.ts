@@ -23,7 +23,7 @@ export interface Moles{
     contra:string;
   }
   export interface Usuarios{
-    uid:string;
+    uid:any;
     nombre:string;
     apellido_paterno:string;
     apellido_materno:string;

@@ -1,44 +1,51 @@
-<br>
-<br>
-<br>
-<br>
+<ion-header>
 
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Registrar</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size="8">
-        <img alt="Silhouette of mountains" src="../../assets/img/LogoOaxacaDeAntequera.png" />
+      <ion-col size="10">
         <ion-item>
           <ion-label position="floating">Correo</ion-label>
-          <ion-input [(ngModel)]="usuario.correo" placeholder="Ingrese el correo"></ion-input>
+          <ion-input [(ngModel)]="datos.correo" placeholder="Ingrese el correo"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input [(ngModel)]="usuario.contra" type="password" placeholder="Ingrese la contraseña"></ion-input>
+          <ion-input [(ngModel)]="datos.contra" type="password" placeholder="Ingrese la contraseña"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="usuario.nombre" type="text" placeholder="Ingrese  nombre"></ion-input>
+          <ion-input [(ngModel)]="datos.nombre" type="text" placeholder="Ingrese  nombre"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Apellido paterno</ion-label>
-          <ion-input [(ngModel)]="usuario.apellido_paterno" type="text"
+          <ion-input [(ngModel)]="datos.apellido_paterno" type="text"
             placeholder="Ingrese  apellido paterno"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Apellido materno</ion-label>
-          <ion-input [(ngModel)]="usuario.apellido_materno" type="text"
+          <ion-input [(ngModel)]="datos.apellido_materno" type="text"
             placeholder="Ingresen apellido materno"></ion-input>
         </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        
         <ion-item>
           <ion-label>Rol</ion-label>
-          <ion-select [(ngModel)]="usuario.rol" [interfaceOptions]="customPopoverOptions" interface="popover"
-            placeholder="Selecciona el rol">
-            <ion-select-option value="administrador">Administrador</ion-select-option>
-            <ion-select-option value="repartidor">Repartidor</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
+          <ion-select [(ngModel)]="datos.rol" [interfaceOptions]="customPopoverOptions" interface="popover"
+          placeholder="Selecciona el rol">
+          <ion-select-option value="administrador">Administrador</ion-select-option>
+          <ion-select-option value="repartidor">Repartidor</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+      
       <ion-col size="5">
         <ion-button (click)="registro()" shape="round">Ingresar</ion-button>
       </ion-col>

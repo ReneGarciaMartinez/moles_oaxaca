@@ -11,6 +11,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid class="eleccion">
     <ion-row>
+      <ion-searchbar (ionChange)="buscador($event)"  mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
       <ion-segment (ionChange)="segmentChanged($event)" mode="ios" [value]="valueSelected">
         <ion-segment-button value="moles">
           <ion-label>Moles</ion-label>
@@ -24,13 +25,9 @@
   </ion-grid>
   <div *ngIf="valueSelected == 'chocolates'">
     <ion-grid>
-      <ion-row>
-        <ion-searchbar mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
-      </ion-row>
+       <ion-row>
 
-      <ion-row>
-
-        <ion-col *ngFor="let chocolate of chocolates" size="6">
+        <ion-col *ngFor="let chocolate of ChocolateBuscado" size="6">
           <ion-card class="card">
             <img alt="Silhouette of mountains" src="{{chocolate.img}}" />
             <ion-card-content>
@@ -76,12 +73,9 @@
     <!-- Termina boton agregar -->
   <div *ngIf="valueSelected == 'moles'">
     <ion-grid>
-      <ion-row>
-        <ion-searchbar mode="ios" animated="true" placeholder="Buscar"></ion-searchbar>
-      </ion-row>
-      <ion-row>
+       <ion-row>
 
-        <ion-col *ngFor="let mole of moles" size="6">
+        <ion-col *ngFor="let mole of MoleBuscado" size="6">
           <ion-card class="card">
             <img alt="Silhouette of mountains" src="{{mole.img}}" />
             <ion-card-content>

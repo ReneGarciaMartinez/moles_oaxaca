@@ -21,7 +21,7 @@
             </ion-card-header>
           
             <ion-card-content>
-              <ion-button [routerLink]="['/scanner']" routerLinkActive="router-link-active" expand="block">Escanear Qr</ion-button>
+              <ion-button (click)="startScan()" expand="block">Escanear Qr</ion-button>
             </ion-card-content>
           </ion-card>
         </ion-item>

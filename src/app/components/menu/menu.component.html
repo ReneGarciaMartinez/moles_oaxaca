@@ -9,20 +9,21 @@
       <ion-row>
         <ion-col size="8">
           <ion-card-title>Hola</ion-card-title>
-          <ion-card-subtitle>René Garcia</ion-card-subtitle>
+          <ion-card-subtitle>{{datos.nombre}} {{datos.apellido_paterno}} {{datos.apellido_materno}}</ion-card-subtitle>
         </ion-col>
         <ion-col size="4">
-          <!-- <ion-button   fill="clear" [routerLink]="['/login']" routerLinkActive="router-link-active" expand="full" class="btn-danger" shape="round"><ion-icon name="power-outline"></ion-icon></ion-button> -->
-          <ion-toggle color="success" [checked]="true"></ion-toggle>
+          <ion-menu-toggle> 
+          <ion-button   fill="clear" (click)="logOut()" expand="full" class="btn-danger" shape="round"><ion-icon name="power-outline"></ion-icon></ion-button>
+          </ion-menu-toggle> 
         </ion-col>
       </ion-row>
     </ion-grid>
    
     <ion-list>
-      <ion-menu-toggle> 
+      <ion-menu-toggle > 
       <ion-button   fill="clear"  [routerLink]="['/tiendas']" routerLinkActive="router-link-active"  expand="full"  >Tiendas</ion-button>
     </ion-menu-toggle>
-    <ion-menu-toggle> 
+    <ion-menu-toggle *ngIf="datos.rol=='administrador'"> 
       <ion-button   fill="clear" [routerLink]="['/productos']" routerLinkActive="router-link-active"  expand="full"  >Productos Admin</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 

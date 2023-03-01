@@ -18,6 +18,10 @@ import { Usuarios } from 'src/app/models/models';
 })
 export class LoginPage implements OnInit {
   user: User = new User();
+  credenciales={
+    correo:null,
+    contra:null
+  }
   usuario:Usuarios={
     uid:'',
     nombre:'',
@@ -27,35 +31,50 @@ export class LoginPage implements OnInit {
     contra:'',
     rol:''
   }
-  constructor(public authSvc: FirebaseauthService, private router: Router,private toastController: ToastController) {}
+  constructor(public auth: FirebaseauthService, private router: Router,private toastController: ToastController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
 
-  login() {
-    console.log(this.user);
-    
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, this.user.email, this.user.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log('Logiado');
-        this.router.navigateByUrl('home')
-        this.presentToast();
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error.code);
-
-      });
-      
   }
-  async presentToast() {
+  async login(){
+    console.log(this.credenciales);
+    const res= await this.auth.login(this.credenciales.correo,this.credenciales.contra).catch(error=>{
+      console.log(error);
+      this.presentToast('Correo o contraseña incorrectas')
+      
+    })
+    if (res) {
+      console.log(res);
+      this.presentToast('Bienvenido')
+      this.router.navigate(['/home'])
+      
+    }
+  }
+  // login() {
+  //   console.log(this.user);
+    
+  //   const auth = getAuth();
+  //   signInWithEmailAndPassword(auth, this.user.email, this.user.password)
+  //     .then((userCredential) => {
+  //       // Signed in
+  //       const user = userCredential.user;
+  //       console.log('Logiado');
+  //       this.router.navigateByUrl('home')
+  //       this.presentToast();
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log(error.code);
+
+  //     });
+      
+  // }
+ 
+  async presentToast(mensaje:any) {
     const toast = await this.toastController.create({
-      message: 'Bienvenido!',
+      message: mensaje,
       duration: 1500,
-      icon: 'globe'
     });
 
     await toast.present();

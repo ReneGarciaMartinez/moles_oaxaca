@@ -14,7 +14,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export class CrearUsuarioPage implements OnInit {
 
   user: User = new User();
-  usuario:Usuarios={
+  datos:Usuarios={
     uid:'',
     nombre:'',
     apellido_paterno:'',
@@ -24,30 +24,45 @@ export class CrearUsuarioPage implements OnInit {
     rol:''
   }
   
-  constructor(public authSvc: FirebaseauthService, private router: Router, private firestoreService:FirestoreService) {}
+  constructor(public auth: FirebaseauthService, private router: Router, private firestoreService:FirestoreService) {}
 
   ngOnInit() {
   }
 
-  registro(){
-
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, this.usuario.correo, this.usuario.contra)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;    
-    console.log(user);
+  async registro(){
+console.log(this.datos);
+const res= await this.auth.registrarUser(this.datos).catch(error=>{
+  console.log(error);
+  
+});
+if (res) {
+  console.log('se creo el usuario');
+  const path='Usuarios'
+  const id= res.user?.uid;
+  this.datos.uid=res.user?.uid;
+  await this.firestoreService.createDoc(this.datos,path,id);
+  this.auth.presentToast('¡Registrado con exito!')
+  
+  
+}
+// const auth = getAuth();
+// createUserWithEmailAndPassword(auth, this.datos.correo, this.datos.contra)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;    
+//     console.log(user);
     
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-    console.log(errorMessage);
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//     console.log(errorMessage);
     
-  });
+//   });
   }
+
 //popover
 customPopoverOptions = {
   header: 'Rol del usuario',

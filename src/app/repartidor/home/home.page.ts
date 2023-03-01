@@ -26,6 +26,8 @@ export class HomePage implements OnDestroy {
     }
   }
 
+
+
   async startScan() {
     try {
       const permission = await this.checkPermission();

@@ -13,6 +13,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class TiendasPage implements OnInit {
   tiendas: Tienda[] = [ ];
+  TiendaBuscada: any;
   newTienda: Tienda[] = [{
     id:'',
     nombre: '',
@@ -25,7 +26,9 @@ export class TiendasPage implements OnInit {
     private firestore: FirestoreService,
     public modalController: ModalController,
     private alertController: AlertController
-  ) { }
+  ) {
+    
+   }
 
   ngOnInit() {
     this.getTiendas();
@@ -34,6 +37,7 @@ export class TiendasPage implements OnInit {
   getTiendas() {
     this.firestore.getTiendas<Tienda>('Tiendas/').subscribe((res) => {
       this.tiendas = res;
+      this.TiendaBuscada=this.tiendas;
       console.log(res);
       
     });
@@ -102,5 +106,15 @@ export class TiendasPage implements OnInit {
 
     
     
+  }
+  buscarTienda(event:any){
+    const text= event.target.value;    
+    if (text && text.trim()!='') {
+      this.TiendaBuscada=this.tiendas.filter((tienda:any)=>{
+        return(tienda.nombre.toLowerCase().indexOf(text.toLowerCase())>-1)
+      })
+    }else{
+      this.TiendaBuscada=this.tiendas;
+    }
   }
 }
