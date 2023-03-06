@@ -19,6 +19,8 @@ export class MenuComponent implements OnInit {
   datos:Usuarios={
     uid:'',
     nombre:'',
+    telefono:'',
+    activo:'',
     apellido_paterno:'',
     apellido_materno:'',
     correo:'',

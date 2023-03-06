@@ -5,6 +5,7 @@ import { User } from 'src/app/shared/user.class';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Usuarios } from 'src/app/models/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -17,18 +18,22 @@ export class CrearUsuarioPage implements OnInit {
   datos:Usuarios={
     uid:'',
     nombre:'',
+    telefono:'',
     apellido_paterno:'',
     apellido_materno:'',
     correo:'',
     contra:'',
+    activo:'true',
     rol:''
   }
   
-  constructor(public auth: FirebaseauthService, private router: Router, private firestoreService:FirestoreService) {}
+  constructor(public auth: FirebaseauthService, private router: Router, private firestoreService:FirestoreService,public modalController: ModalController) {}
 
   ngOnInit() {
   }
-
+ closeModal() {
+    this.modalController.dismiss();
+  }
   async registro(){
 console.log(this.datos);
 const res= await this.auth.registrarUser(this.datos).catch(error=>{
@@ -42,7 +47,7 @@ if (res) {
   this.datos.uid=res.user?.uid;
   await this.firestoreService.createDoc(this.datos,path,id);
   this.auth.presentToast('¡Registrado con exito!')
-  
+  this.closeModal(); 
   
 }
 // const auth = getAuth();

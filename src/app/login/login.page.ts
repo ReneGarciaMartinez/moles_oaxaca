@@ -25,6 +25,8 @@ export class LoginPage implements OnInit {
   usuario:Usuarios={
     uid:'',
     nombre:'',
+    telefono:'',
+    activo:'',
     apellido_paterno:'',
     apellido_materno:'',
     correo:'',

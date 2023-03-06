@@ -1,8 +1,8 @@
 <ion-header>
 
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cerrar</ion-button>
     </ion-buttons>
     <ion-title>Registrar</ion-title>
   </ion-toolbar>
@@ -21,7 +21,11 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="datos.nombre" type="text" placeholder="Ingrese  nombre"></ion-input>
+          <ion-input [(ngModel)]="datos.nombre" type="text" placeholder="Ingrese su nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Telefono</ion-label>
+          <ion-input [(ngModel)]="datos.telefono" type="text" placeholder="Ingrese  su numero telefonico"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Apellido paterno</ion-label>
@@ -31,7 +35,7 @@
         <ion-item>
           <ion-label position="floating">Apellido materno</ion-label>
           <ion-input [(ngModel)]="datos.apellido_materno" type="text"
-            placeholder="Ingresen apellido materno"></ion-input>
+            placeholder="Ingrese apellido materno"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
@@ -47,7 +51,7 @@
     </ion-col>
       
       <ion-col size="5">
-        <ion-button (click)="registro()" shape="round">Ingresar</ion-button>
+        <ion-button (click)="registro()" shape="round">Registrar</ion-button>
       </ion-col>
 
 

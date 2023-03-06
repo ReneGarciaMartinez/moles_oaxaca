@@ -1,34 +1,44 @@
 <ion-header>
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
   <ion-toolbar>
     <ion-title>usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card >
     <ion-card-header>
       <ion-card-title>Usuarios</ion-card-title>
       <ion-card-subtitle>Estos son los usuarios disponibles</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-card color="medium">
+        <ion-card color="medium" *ngFor="let usuario of usuarios">
           <ion-item>
-            <ion-toggle slot="start" color="success" [enableOnOffLabels]="true"></ion-toggle>
-            <ion-icon size="large" name="car-outline"></ion-icon>
-            <ion-icon slot="end" name="close"></ion-icon>
+            <ion-toggle slot="start" (click)="cambiarActivo(usuario)" color="success" [enableOnOffLabels]="true" [checked]="usuario.activo"></ion-toggle>
+            <ion-icon *ngIf="usuario.rol=='repartidor'" size="large" name="car-outline"></ion-icon>
+            <ion-icon *ngIf="usuario.rol=='administrador'" size="large" name="id-card-outline"></ion-icon>
+            <ion-button fill="clear" slot="end" color="danger" (click)="presentAlert(usuario)">
+              <ion-icon  slot="end" name="close"></ion-icon>
+            </ion-button>
+            
           </ion-item>
           <ion-item>
             <ion-grid>
               <ion-row>
                 <ion-col size="12">
-                  <ion-label>Nombre: René Eliut Garcia Martinez </ion-label>
+                  <ion-label>Nombre: {{usuario.nombre}} {{usuario.apellido_paterno}} {{usuario.apellido_materno}}</ion-label>
                 </ion-col>
 
               </ion-row>
               <ion-row>
-                <ion-col size="10"><ion-label>Celular: 9512162607</ion-label></ion-col>
-                <ion-col size="2"><ion-icon size="large" name="pencil"></ion-icon></ion-col>
+                <ion-col size="12"><ion-label>Correo: </ion-label></ion-col>
+                <ion-col size="12">{{usuario.correo}}</ion-col>
+                <ion-col size="12"><ion-label>Telefono: </ion-label></ion-col>
+                <ion-col size="10">{{usuario.telefono}}</ion-col>
+                <ion-col (click)="openModalEditarUsuario(usuario)" size="2"><ion-icon size="large" name="pencil"></ion-icon></ion-col>
               </ion-row>
 
             </ion-grid>
@@ -41,7 +51,7 @@
     </ion-card-content>
   </ion-card>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
+    <ion-fab-button (click)="modal_nuevo_usuario()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

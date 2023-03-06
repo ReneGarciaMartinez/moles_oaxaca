@@ -2,8 +2,9 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.example.app',
-  appName: 'moles_oaxaca',
+  appName: 'Oaxaca de Antequera',
   webDir: 'www',
+  
   bundledWebRuntime: false
 };
 

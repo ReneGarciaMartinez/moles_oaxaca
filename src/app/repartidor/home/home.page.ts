@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { Pedido, Tienda, Usuarios } from 'src/app/models/models';
 import { ExperienciaService } from 'src/app/services/experiencia.service';
+import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { User } from 'src/app/shared/user.class';
 
 
 @Component({
@@ -11,13 +14,55 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnDestroy {
-  resultadoEscaner: any;
+  private pedido:Pedido={
+    id:'',
+    tienda:'',
+    productos:[],
+    precioTotal:0,
+    fecha:new Date()
+  }
+  tienda_escaneada: any;
   document:any;
   path='';
-  visible:string='show';
+  visible='show';
+  user: User = new User();
+  login:boolean =false;
+  datos:Usuarios={
+    uid:'',
+    nombre:'',
+    telefono:'',
+    activo:'',
+    apellido_paterno:'',
+    apellido_materno:'',
+    correo:'',
+    contra:'',
+    rol:''
+  }
+  constructor(public authSvc: FirebaseauthService,private router: Router, private experiencia: ExperienciaService, private firestoreService:FirestoreService) {
+    this.authSvc.stateUser().subscribe(res=>{
+      if (res) {
+        
+        this.login=true;
+        this.getDatosUser(res.uid);
+      }else{
+      
+        this.login=false;
+      }
+    })
+    this.visible='show';
+  }
+ 
+  getDatosUser(uid:any){
+    const path='Usuarios';
+    const id=uid;
+   this.firestoreService.getDoc<Usuarios>(path,id).subscribe(res=>{
+   
+    if (res) {
+      this.datos=res;
+    }
+   })
 
-  constructor(private router: Router, private experiencia: ExperienciaService, private firestoreService:FirestoreService) {}
-
+  }
   async checkPermission(): Promise<boolean | any> {
     try {
       const status = await BarcodeScanner.checkPermission({ force: true });
@@ -34,7 +79,7 @@ export class HomePage implements OnDestroy {
 
 
   async startScan() {
-    
+    this.visible='hidden';
     try {
       const permission = await this.checkPermission();
       if (!permission) {
@@ -42,25 +87,38 @@ export class HomePage implements OnDestroy {
       }
       await BarcodeScanner.hideBackground();
       document.querySelector('body')?.classList.add('scanner-active');
-      this.visible='hidden';
+      
       const result = await BarcodeScanner.startScan();
       console.log(result);
-      this.visible='show';
+      
       BarcodeScanner.showBackground();
       if (result?.hasContent) {
-        this.resultadoEscaner = result.content;
+        this.tienda_escaneada = result.content;
         document.querySelector('body')?.classList.remove('scanner-active');
-        console.log(this.resultadoEscaner);
+        console.log(this.tienda_escaneada);
         this.CodigoEscaneado();
       }
     } catch (error) {
       console.log("Este es el error",error);
       this.stopScan();
+      this.experiencia.presentToast("Error intentelo de nuevo");
     }
   }
   CodigoEscaneado() {
-    this.router.navigateByUrl('tabs/tab2');
-    this.experiencia.presentToast('Escaneado con exito');
+    this.visible='show';
+    this.pedido.id=this.datos.uid;
+    this.pedido.tienda=this.tienda_escaneada;
+    const tienda= this.firestoreService.getDoc<Tienda>('Tiendas/',this.tienda_escaneada);
+
+    if (tienda) {
+      this.firestoreService.createDoc(this.pedido,'Usuarios/'+this.datos.uid+'/Carrito/',this.datos.uid)
+      this.router.navigateByUrl('tabs/tab2');
+      this.experiencia.presentToast('Escaneado con exito');
+    } else {
+      this.stopScan();
+      this.experiencia.presentToast("Vuelva a intentarlo")
+    }
+   
   
   }
   stopScan() {

@@ -1,28 +1,66 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { Repartidor } from '../models/models';
+import { Repartidor, Usuarios } from '../models/models';
+import { User } from '../shared/user.class';
+import { FirebaseauthService } from './firebaseauth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
-  uid='aEAj6Ik5BGcBf6cq1GrV7q95IM73';
+  uid='';
+  user: User = new User();
+  login:boolean =false;
+  datos:Usuarios={
+    uid:'',
+    nombre:'',
+    telefono:'',
+    apellido_paterno:'',
+    apellido_materno:'',
+    correo:'',
+    contra:'',
+    rol:'',
+    activo:''
+  }
+ 
+ 
+
+  constructor(public authSvc: FirebaseauthService,private firestore: AngularFirestore) { 
+    this.authSvc.stateUser().subscribe(res=>{
+      if (res) {
+        
+        this.login=true;
+        this.getDatosUser(res.uid);
+      }else{
+      
+        this.login=false;
+      }
+    })
+  }
+  getDatosUser(uid:any){
+    const path='Usuarios';
+    const id=uid;
+   this.getDoc<Usuarios>(path,id).subscribe(res=>{
+   
+    if (res) {
+      this.datos=res;
+      this.uid=this.datos.uid
+    }
+   })
+
+  }
   createRepartidor(repartidor: any, path: string, uid: string) {
     const collection = this.firestore.collection(path);
     return collection.doc(uid).set(repartidor);
   }
- 
-
-  constructor(private firestore: AngularFirestore) { }
-
    getMoles<tipo>(path: any){
 
     const collection =this.firestore.collection<tipo>('Moles');
     return collection.valueChanges();
   }
   getCarri<tipo>(){
-    const collection =this.firestore.collection<tipo>('/Usuarios/aEAj6Ik5BGcBf6cq1GrV7q95IM73/Carrito').doc(this.uid);
+    const collection =this.firestore.collection<tipo>('/Usuarios/'+this.uid+'/Carrito').doc(this.uid);
     // console.log(collection);
     return collection.valueChanges();
   }
@@ -70,6 +108,7 @@ getCarrito<Pedido>(path: any){
     const collection = this.firestore.collection(path);
     return collection.doc(id).update(data);
   }
+  
   updateChocolate(data:any,path:string,id:string){
     const collection = this.firestore.collection(path);
     return collection.doc(id).update(data);
@@ -96,5 +135,21 @@ deleteTienda(path:string, id:string){
 createTienda(data:any,path:string,id:string){
   const collection = this.firestore.collection(path);
   return collection.doc(id).set(data);
+}
+//usuarios
+
+getUsuarios<tipo>(path: any){
+
+  const collection =this.firestore.collection<tipo>('Usuarios');
+  return collection.valueChanges();
+}
+updateDoc(data:any,path:string,id:string){
+  const collection = this.firestore.collection(path);
+  return collection.doc(id).update(data);
+}
+deleteDoc(path:string, id:string){
+  const collection= this.firestore.collection(path);
+  return collection.doc(id).delete();
+
 }
 }

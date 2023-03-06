@@ -1,8 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ToastController } from '@ionic/angular';
 import { log } from 'console';
-import { Moles, Pedido, ProductoPedido } from '../models/models';
+import { Moles, Pedido, ProductoPedido, Usuarios } from '../models/models';
+import { User } from '../shared/user.class';
+import { FirebaseauthService } from './firebaseauth.service';
 import { FirestoreService } from './firestore.service';
 
 @Injectable({
@@ -10,20 +13,54 @@ import { FirestoreService } from './firestore.service';
 })
 export class CarritoService {
   private pedido:Pedido={
-    id:'aEAj6Ik5BGcBf6cq1GrV7q95IM73',
+    id:'',
     tienda:'',
     productos:[],
     precioTotal:0,
     fecha:new Date()
   }
   path = 'Carrito/';
-  uid='aEAj6Ik5BGcBf6cq1GrV7q95IM73';
+  uid='';
   tienda='';
-  constructor(public firesoreService: FirestoreService,  private toastController: ToastController,) {
+  user: User = new User();
+  login:boolean =false;
+  datos:Usuarios={
+    uid:'',
+    nombre:'',
+    apellido_paterno:'',
+    apellido_materno:'',
+    correo:'',
+    contra:'',
+    rol:'',
+    telefono:'',
+    activo:'',
+  }
+  constructor(private firestoreA: AngularFirestore,public authSvc: FirebaseauthService,public firesoreService: FirestoreService,  private toastController: ToastController,) {
     this.firesoreService.getCarri().subscribe((res: any)=>{
       this.pedido = res;
       console.log("Prueba: ",this.pedido);
     });
+    this.authSvc.stateUser().subscribe(res=>{
+      if (res) {
+        
+        this.login=true;
+        this.getDatosUser(res.uid);
+      }else{
+      
+        this.login=false;
+      }
+    })
+  }
+  getDatosUser(uid:any){
+    const path='Usuarios';
+    const id=uid;
+   this.firesoreService.getDoc<Usuarios>(path,id).subscribe(res=>{
+   
+    if (res) {
+      this.datos=res;
+      this.uid=this.datos.uid;
+    }
+   })
 
   }
   addProducto(producto: Moles) {
@@ -67,7 +104,9 @@ export class CarritoService {
       console.log('eliminado');
     })
   }
-  realizarPedido() {}
-
-  clearCarrito() {}
+  deleteCarrito(path:string, id:string){
+    const collection= this.firestoreA.collection(path);
+    return collection.doc(id).delete();
+  
+  }
 }

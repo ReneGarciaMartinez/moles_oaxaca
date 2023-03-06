@@ -1,10 +1,14 @@
-<ion-header>
+<ion-header *ngIf="visible=='show'">
   <ion-toolbar>
-    <ion-title>Bienvenido René</ion-title>
+    <ion-title>Bienvenido</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-row class="qr_activo" *ngIf="visible=='hidden'">
+<ion-col class="cuadro_qr">
 
-<ion-content [style.visibility]="visible">
+</ion-col>
+</ion-row>
+<ion-content *ngIf="visible=='show'">
   <ion-card class="card_principal">
     <ion-card-header>
       <ion-card-title>Vamos a comenzar</ion-card-title>

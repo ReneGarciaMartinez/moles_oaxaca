@@ -25,15 +25,17 @@ export interface Moles{
   export interface Usuarios{
     uid:any;
     nombre:string;
+    telefono:string;
     apellido_paterno:string;
     apellido_materno:string;
     correo:string;
     contra:string;
     rol:string;
+    activo:string;
   }
   export interface Pedido{
     id:string;
-    tienda:string;
+    tienda:any;
     productos:ProductoPedido[];
     precioTotal:number;
     fecha:Date;
