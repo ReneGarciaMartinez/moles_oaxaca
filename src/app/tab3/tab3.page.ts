@@ -186,13 +186,19 @@ async presentAlert() {
   
 }
   CompraContado(){
-    // console.log("estamos en la funcion Compra de contado");
-    // this.pedidos.precioTotal=this.precioTotal;
-    // console.log("pedidos:",this.pedidos);
+    console.log("estamos en la funcion Compra de contado");
+    this.pedidos.precioTotal=this.precioTotal;
+    this.pedido.productos=this.pedidos;
+    this.pedido.precioTotal=this.precioTotal;
+    this.pedido.tienda=this.datos_tienda.id;
+    console.log("pedidos:",this.pedido);
     
-    // console.log("precio Total;",this.precioTotal);
-    
-    
+    console.log("precio Total;",this.precioTotal);
+    const id_nuevo =this.firestore.getId();
+    this.pedido.id=id_nuevo;
+    this.firestore.createPedido(this.pedido,'Pedidos',id_nuevo)
+    this.eliminarCarrito();  
+    this.router.navigateByUrl('tabs/tab1');
     
   }
 }
