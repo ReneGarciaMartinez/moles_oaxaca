@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { Moles, Pedido, ProductoPedido, Tienda, Usuarios } from '../models/models';
 import { CarritoService } from '../services/carrito.service';
 import { FirestoreService } from '../services/firestore.service';
-import { AlertController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { User } from '../shared/user.class';
 import { FirebaseauthService } from '../services/firebaseauth.service';
 import { Router } from '@angular/router';
 import { ExperienciaService } from '../services/experiencia.service';
+import { CompraCreditoPage } from '../pages/compra-credito/compra-credito.page';
+import { PrintService } from '../services/print.service';
 
 @Component({
   selector: 'app-tab3',
@@ -28,8 +30,10 @@ export class Tab3Page {
     tienda:'',
     productos:[],
     precioTotal:0,
-    fecha:new Date()
+    fecha:new Date(),
+    repartidor:''
   }
+  productos:any=[];
   pedidos: any;
   all: any;
   precioTotal = 0;
@@ -46,6 +50,9 @@ export class Tab3Page {
     telefono:'',
     activo:'',
   }
+  bluetoothList:any=[];
+  selectedPrinter:any;
+  impresion=0;
   uid = '';
   constructor(
     public authSvc: FirebaseauthService,
@@ -54,7 +61,9 @@ export class Tab3Page {
     public popoverController: PopoverController,
     public router:Router,
     private alertController: AlertController,
-    private experiencia:ExperienciaService
+    private experiencia:ExperienciaService,
+    public modalController:ModalController,
+    private print:PrintService,
   ) {
     this.precioTotal = 0;
     this.loadCarrito();
@@ -150,10 +159,10 @@ export class Tab3Page {
     this.carritoService.removeProducto(producto, index);
     this.precioTotal = 0;
   }
-eliminarCarrito(){
+eliminarCarrito(dato:any){
   this.carritoService.deleteCarrito('Usuarios/'+this.uid+'/Carrito',this.uid);
   this.router.navigateByUrl('/home');
-  this.experiencia.presentToast('Pedido cancelado')
+  this.experiencia.presentToast(dato)
   
 }
 
@@ -173,7 +182,7 @@ async presentAlert() {
         text: 'Eliminar',
         role: 'confirm',
         handler: () => {
-            this.eliminarCarrito();   
+            this.eliminarCarrito('Pedido cancelado');   
         
         },
       },
@@ -190,15 +199,67 @@ async presentAlert() {
     this.pedidos.precioTotal=this.precioTotal;
     this.pedido.productos=this.pedidos;
     this.pedido.precioTotal=this.precioTotal;
-    this.pedido.tienda=this.datos_tienda.id;
+    this.pedido.tienda=this.datos_tienda.nombre;
+    this.pedido.repartidor=this.datos.nombre+' '+this.datos.apellido_paterno+' '+this.datos.apellido_materno;
     console.log("pedidos:",this.pedido);
     
     console.log("precio Total;",this.precioTotal);
-    const id_nuevo =this.firestore.getId();
-    this.pedido.id=id_nuevo;
-    this.firestore.createPedido(this.pedido,'Pedidos',id_nuevo)
-    this.eliminarCarrito();  
-    this.router.navigateByUrl('tabs/tab1');
+  
+   
+    this.impresion=1;
+    this.experiencia.presentToast('Selecciona una impresora');
+    this.listPrinter(); 
+    
     
   }
+  async compraCredito(){
+    const modal = await this.modalController.create({
+      component: CompraCreditoPage,
+      cssClass: 'class-modal',
+    });
+    return await modal.present();
+    
+}
+
+//impresion
+
+//Enlista los dispositivos
+listPrinter() { 
+  this.print.searchBluetoothPrinter()
+   .then(resp=>{
+
+    //Lista de dispositivos bluetooth
+    this.bluetoothList=resp;
+});
+}
+//guarda la direccion mac de la impresora
+selectPrinter(macAddress:any){
+//direccion mac de la impresora seleccionada
+this.selectedPrinter=macAddress;
+}
+
+//Esto imprimira
+printStuff(){  
+//El texto que quieres imprimir
+var myText=this.pedido.fecha+"\n\n\n cliente: "+
+this.pedido.tienda+"\n\n\n Repartidor: "+
+this.pedido.repartidor+"\n\n\n"+
+"-----------Productos-----------"
++"\n\n\n"+"Cantidad |  Producto  | Precio U. ";
+for (let index = 0; index < this.pedidos.length; index++) {
+  const element = this.pedidos[index];
+  myText=myText+"\n\n\n"+element.cantidad+"  |"+element.producto.nombre+element.producto.descripcion+"|  $"+element.producto.precio+".00"
+  
+}
+var img = new Image();
+img.src ="https://utvco.edu.mx/w/wp-content/uploads/2022/05/LOGO-HALCONES.png";
+
+myText=myText+"\n\n\n Total: $"+this.pedidos.precioTotal+"\n\n\n Gracias por su compra :) \n\n\n ";
+this.print.sendToBluetoothPrinter(this.selectedPrinter,myText);
+this.router.navigateByUrl('tabs/tab1');
+const id_nuevo =this.firestore.getId();
+this.pedido.id=id_nuevo;
+this.firestore.createPedido(this.pedido,'Pedidos',id_nuevo)
+this.eliminarCarrito('Imprimiendo....'); 
+}
 }
