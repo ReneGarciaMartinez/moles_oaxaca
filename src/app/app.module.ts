@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { ComponentsModule } from './components/component.module';
 import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import {BluetoothSerial} from '@ionic-native/bluetooth-serial/ngx';
 
 
 
@@ -23,7 +24,8 @@ import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
      AppRoutingModule,AngularFireModule.initializeApp(environment.firebaseConfig),
      AngularFireAuthModule,FormsModule,AngularFireStorageModule,ComponentsModule, NgxScannerQrcodeModule
     ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    BluetoothSerial],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

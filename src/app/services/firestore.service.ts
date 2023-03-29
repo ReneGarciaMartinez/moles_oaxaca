@@ -157,4 +157,9 @@ createPedido(data:any,path:string,id:string){
   const collection = this.firestore.collection(path);
   return collection.doc(id).set(data);
 }
+getPedidos<tipo>(path: any){
+
+  const collection =this.firestore.collection<tipo>('Pedidos');
+  return collection.valueChanges();
+}
 }

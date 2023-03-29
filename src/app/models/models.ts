@@ -39,6 +39,7 @@ export interface Moles{
     productos:ProductoPedido[];
     precioTotal:number;
     fecha:Date;
+    repartidor:any;
   }
  export  interface ProductoPedido{
     producto:Moles;

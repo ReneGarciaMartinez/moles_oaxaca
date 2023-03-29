@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="impresion==0">
 
   <ion-card>
     <ion-card-header>
@@ -53,4 +53,26 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+</ion-content>
+<ion-content *ngIf="impresion==1">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Impresoras disponibles</ion-card-title>
+      <ion-card-subtitle>Elige una impresora para continuar</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of bluetoothList" (click)="selectPrinter(item.id)">
+            {{item.name}} {{item.id}}
+        </ion-item>
+        </ion-list>
+        <div *ngIf='selectedPrinter'>
+           Impresora selecionada:<ion-badge slot="start"> {{selectedPrinter}}</ion-badge> 
+        </div>
+        <ion-button expand="full" color="success" *ngIf='selectedPrinter' (click)="printStuff()">
+        Conectar
+        </ion-button>  
+    </ion-card-content>
+  </ion-card>
 </ion-content>

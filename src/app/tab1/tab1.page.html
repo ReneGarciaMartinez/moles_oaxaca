@@ -23,30 +23,31 @@
     <ion-card-header>
       <ion-card-title>Pedidos</ion-card-title>
       <ion-card-subtitle>Estos son los pedidos que se han realizado</ion-card-subtitle>
-      <ion-searchbar animated="true"  mode="ios" placeholder="Buscar tienda"></ion-searchbar>
+      <!-- <ion-searchbar (ionChange)="buscador($event)" animated="true"  mode="ios" placeholder="Buscar pedido"></ion-searchbar> -->
     </ion-card-header>
 
     <ion-card-content>
       <ion-list>
         <ion-item >
             <ion-grid>
-              <ion-row class="ion-align-items-center rowsito">
-                <ion-col size="9">
-                  <ion-card class="card_pedido">
+              <ion-row *ngFor="let pedido of PedidoBuscado"  class="ion-align-items-center rowsito">
+                <ion-col  size="9">
+                  <ion-card color="medium" class="card_pedido">
                     <ion-card-header>
-                      <ion-card-title class="titulo_pedido">Cliente: Abarrotes la esquina</ion-card-title>
-                      <ion-card-subtitle>Fecha: 05/01/2023</ion-card-subtitle>
-                      <ion-card-subtitle>Repartidor: René Garcia</ion-card-subtitle>
-                      
-
+                      <ion-card-title class="titulo_pedido">Cliente: {{pedido.tienda}}</ion-card-title>
+                      <ion-card-subtitle>Fecha: {{pedido.fecha}}</ion-card-subtitle>
+                      <ion-card-subtitle>Repartidor:  {{pedido.repartidor}}</ion-card-subtitle>
                     </ion-card-header>
 
                     <ion-card-content>
                       <ion-card-subtitle>Productos:</ion-card-subtitle>
-                      <ion-card-subtitle>1kg Mole Rojo</ion-card-subtitle>
-                      <ion-card-subtitle>20 Kg Mole verde</ion-card-subtitle>
-                      <ion-card-subtitle>2kg Mole negro</ion-card-subtitle>
-                      <ion-card-subtitle>Total de venta: $1580</ion-card-subtitle>
+                      <ion-card-subtitle>Nombre/Desc./Cantidad</ion-card-subtitle>
+                      <ion-item *ngFor="let productos of pedido.productos">
+                        
+                        <ion-card-subtitle >{{productos.producto.nombre}}  {{productos.producto.descripcion}} {{productos.cantidad}}</ion-card-subtitle>
+                      </ion-item>
+
+                      <ion-card-subtitle>Total de venta: ${{pedido.precioTotal}}</ion-card-subtitle>
                     </ion-card-content>
                   </ion-card>
                 </ion-col>
@@ -58,96 +59,6 @@
               </ion-row>
             </ion-grid>
         </ion-item>
-        <ion-item >
-          <ion-grid>
-            <ion-row class="ion-align-items-center rowsito">
-              <ion-col size="9">
-                <ion-card class="card_pedido">
-                  <ion-card-header>
-                    <ion-card-title class="titulo_pedido">Cliente: Abarrotes la esquina</ion-card-title>
-                    <ion-card-subtitle>Fecha: 05/01/2023</ion-card-subtitle>
-                    <ion-card-subtitle>Repartidor: René Garcia</ion-card-subtitle>
-                    
-
-                  </ion-card-header>
-
-                  <ion-card-content>
-                    <ion-card-subtitle>Productos:</ion-card-subtitle>
-                    <ion-card-subtitle>1kg Mole Rojo</ion-card-subtitle>
-                    <ion-card-subtitle>20 Kg Mole verde</ion-card-subtitle>
-                    <ion-card-subtitle>2kg Mole negro</ion-card-subtitle>
-                    <ion-card-subtitle>Total de venta: $1580</ion-card-subtitle>
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-              <ion-col size="3">
-                <ion-button size="small" fill="clear" size="large"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-                <ion-button size="small" color="danger" fill="clear" size="large" ><ion-icon name="trash-outline"></ion-icon></ion-button>
-                <ion-button size="small" color="success" fill="clear" size="large" ><ion-icon name="print"></ion-icon></ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-      </ion-item>
-      <ion-item >
-        <ion-grid>
-          <ion-row class="ion-align-items-center rowsito">
-            <ion-col size="9">
-              <ion-card class="card_pedido">
-                <ion-card-header>
-                  <ion-card-title class="titulo_pedido">Cliente: Abarrotes la esquina</ion-card-title>
-                  <ion-card-subtitle>Fecha: 05/01/2023</ion-card-subtitle>
-                  <ion-card-subtitle>Repartidor: René Garcia</ion-card-subtitle>
-                  
-
-                </ion-card-header>
-
-                <ion-card-content>
-                  <ion-card-subtitle>Productos:</ion-card-subtitle>
-                  <ion-card-subtitle>1kg Mole Rojo</ion-card-subtitle>
-                  <ion-card-subtitle>20 Kg Mole verde</ion-card-subtitle>
-                  <ion-card-subtitle>2kg Mole negro</ion-card-subtitle>
-                  <ion-card-subtitle>Total de venta: $1580</ion-card-subtitle>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-            <ion-col size="3">
-              <ion-button size="small" fill="clear" size="large"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-              <ion-button size="small" color="danger" fill="clear" size="large" ><ion-icon name="trash-outline"></ion-icon></ion-button>
-              <ion-button size="small" color="success" fill="clear" size="large" ><ion-icon name="print"></ion-icon></ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-    </ion-item>
-    <ion-item >
-      <ion-grid>
-        <ion-row class="ion-align-items-center rowsito">
-          <ion-col size="9">
-            <ion-card class="card_pedido">
-              <ion-card-header>
-                <ion-card-title class="titulo_pedido">Cliente: Abarrotes la esquina</ion-card-title>
-                <ion-card-subtitle>Fecha: 05/01/2023</ion-card-subtitle>
-                <ion-card-subtitle>Repartidor: René Garcia</ion-card-subtitle>
-                
-
-              </ion-card-header>
-
-              <ion-card-content>
-                <ion-card-subtitle>Productos:</ion-card-subtitle>
-                <ion-card-subtitle>1kg Mole Rojo</ion-card-subtitle>
-                <ion-card-subtitle>20 Kg Mole verde</ion-card-subtitle>
-                <ion-card-subtitle>2kg Mole negro</ion-card-subtitle>
-                <ion-card-subtitle>Total de venta: $1580</ion-card-subtitle>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col size="3">
-            <ion-button size="small" fill="clear" size="large"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-            <ion-button size="small" color="danger" fill="clear" size="large" ><ion-icon name="trash-outline"></ion-icon></ion-button>
-            <ion-button size="small" color="success" fill="clear" size="large" ><ion-icon name="print"></ion-icon></ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-  </ion-item>
       </ion-list>
     </ion-card-content>
 </ion-content>

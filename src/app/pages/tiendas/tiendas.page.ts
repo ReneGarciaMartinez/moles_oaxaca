@@ -5,6 +5,7 @@ import { EditarTiendaPage } from 'src/app/modals/editar-tienda/editar-tienda.pag
 import { TiendaQrPage } from 'src/app/modals/tienda-qr/tienda-qr.page';
 import { Tienda } from 'src/app/models/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { PrintService } from 'src/app/services/print.service';
 
 @Component({
   selector: 'app-tiendas',
@@ -12,6 +13,9 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./tiendas.page.scss'],
 })
 export class TiendasPage implements OnInit {
+  impresion=0;
+  bluetoothList:any=[];
+  selectedPrinter:any;
   tiendas: Tienda[] = [ ];
   TiendaBuscada: any;
   newTienda: Tienda[] = [{
@@ -21,8 +25,10 @@ export class TiendasPage implements OnInit {
       direccion: '',
       telefono:''
   }
+  
   ];
   constructor(
+    private print:PrintService,
     private firestore: FirestoreService,
     public modalController: ModalController,
     private alertController: AlertController
@@ -117,4 +123,26 @@ export class TiendasPage implements OnInit {
       this.TiendaBuscada=this.tiendas;
     }
   }
+  //impresion
+  //Enlista los dispositivos
+ listPrinter() { 
+  this.print.searchBluetoothPrinter()
+   .then(resp=>{
+
+    //Lista de dispositivos bluetooth
+    this.bluetoothList=resp;
+});
+}
+//guarda la direccion mac de la impresora
+selectPrinter(macAddress:any){
+//direccion mac de la impresora seleccionada
+this.selectedPrinter=macAddress;
+}
+
+//Esto imprimira
+printStuff(){  
+//El texto que quieres imprimir
+var myText="Hola esta es una pequeña prueba \n\n\n un pequeño texto\n\n\n";
+this.print.sendToBluetoothPrinter(this.selectedPrinter,myText);
+}
 }

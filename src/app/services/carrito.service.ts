@@ -17,7 +17,8 @@ export class CarritoService {
     tienda:'',
     productos:[],
     precioTotal:0,
-    fecha:new Date()
+    fecha:new Date(),
+    repartidor:''
   }
   path = 'Carrito/';
   uid='';

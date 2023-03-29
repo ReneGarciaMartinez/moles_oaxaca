@@ -19,7 +19,8 @@ export class HomePage implements OnDestroy {
     tienda:'',
     productos:[],
     precioTotal:0,
-    fecha:new Date()
+    fecha:new Date(),
+    repartidor:''
   }
   tienda_escaneada: any;
   document:any;

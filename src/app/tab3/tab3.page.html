@@ -8,7 +8,7 @@
 </ion-toolbar>
 
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="impresion==0">
   <ion-card color="medium">
     <ion-card-content>
       <ion-button  color="danger" (click)="presentAlert()"  expand="block" shape="round">Cancelar pedido</ion-button>
@@ -38,7 +38,7 @@
       <ion-card-subtitle>Agrega articulos para empezar.</ion-card-subtitle>
     </ion-card-header>
   </div>
-  <ion-card *ngIf="precioTotal>0">
+  <ion-card  *ngIf="precioTotal>0">
     <ion-card-header color="light">
       <ion-card-title>Productos</ion-card-title>
     </ion-card-header>
@@ -88,12 +88,34 @@
 
   <!-- boton generar pedido-->
 
-
+  
 
 
 
 </ion-content>
-<ion-row class="ion-align-items-center">
+<ion-content *ngIf="impresion==1">
+  <ion-card  >
+    <ion-card-header>
+      <ion-card-title>Impresoras disponibles</ion-card-title>
+      <ion-card-subtitle>Elige una impresora para continuar</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of bluetoothList" (click)="selectPrinter(item.id)">
+            {{item.name}} {{item.id}}
+        </ion-item>
+        </ion-list>
+        <div *ngIf='selectedPrinter'>
+           Impresora selecionada:<ion-badge slot="start"> {{selectedPrinter}}</ion-badge> 
+        </div>
+        <ion-button expand="full" color="success" *ngIf='selectedPrinter' (click)="printStuff()">
+        Conectar
+        </ion-button>  
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-row class="ion-align-items-center" *ngIf="impresion==0">
   <ion-col size="3" class="ion-align-items-center">
     <ion-badge style="font-size: large;" mode="ios" *ngIf="precioTotal>0"> Total: $ {{precioTotal}}</ion-badge>
   </ion-col>
@@ -104,7 +126,7 @@
       <ion-popover trigger="top-center" side="top" alignment="center " [dismissOnSelect]="true">
         <ng-template>
          <ion-button (click)="CompraContado()" fill="clear" expand="block">Contado</ion-button>
-         <ion-button fill="clear" expand="block">Credito</ion-button>
+         <ion-button (click)="compraCredito()" fill="clear" expand="block">Credito</ion-button>
         </ng-template>
       </ion-popover>
     </ion-col>

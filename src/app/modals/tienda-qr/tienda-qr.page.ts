@@ -20,5 +20,6 @@ export class TiendaQrPage implements OnInit {
   }
   closeModal() {
     this.modalController.dismiss();
+    
   }
 }

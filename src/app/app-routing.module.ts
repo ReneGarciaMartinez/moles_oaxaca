@@ -75,6 +75,14 @@ const routes: Routes = [
     path: 'editar-usuario',
     loadChildren: () => import('./admin/modals/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
   },
+  {
+    path: 'impresoras',
+    loadChildren: () => import('./pages/impresoras/impresoras.module').then( m => m.ImpresorasPageModule)
+  },
+  {
+    path: 'compra-credito',
+    loadChildren: () => import('./pages/compra-credito/compra-credito.module').then( m => m.CompraCreditoPageModule)
+  },
 ];
 @NgModule({
   imports: [
