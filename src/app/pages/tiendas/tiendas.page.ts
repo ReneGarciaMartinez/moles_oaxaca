@@ -23,7 +23,9 @@ export class TiendasPage implements OnInit {
     nombre: '',
       responsable:'',
       direccion: '',
-      telefono:''
+      telefono:'',
+      debe:'',
+      cantidad_debe:0
   }
   
   ];

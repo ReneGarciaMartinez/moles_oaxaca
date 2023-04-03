@@ -18,6 +18,7 @@ import {BluetoothSerial} from '@ionic-native/bluetooth-serial/ngx';
 
 
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(),

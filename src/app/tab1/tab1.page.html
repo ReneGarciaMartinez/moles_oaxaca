@@ -35,16 +35,18 @@
                   <ion-card color="medium" class="card_pedido">
                     <ion-card-header>
                       <ion-card-title class="titulo_pedido">Cliente: {{pedido.tienda}}</ion-card-title>
-                      <ion-card-subtitle>Fecha: {{pedido.fecha}}</ion-card-subtitle>
+                      <!-- <ion-card-subtitle>Fecha: {{pedido.fecha}}</ion-card-subtitle> -->
                       <ion-card-subtitle>Repartidor:  {{pedido.repartidor}}</ion-card-subtitle>
                     </ion-card-header>
 
                     <ion-card-content>
                       <ion-card-subtitle>Productos:</ion-card-subtitle>
-                      <ion-card-subtitle>Nombre/Desc./Cantidad</ion-card-subtitle>
+                      <ion-card-subtitle>Nombre/Descripción</ion-card-subtitle>
                       <ion-item *ngFor="let productos of pedido.productos">
-                        
-                        <ion-card-subtitle >{{productos.producto.nombre}}  {{productos.producto.descripcion}} {{productos.cantidad}}</ion-card-subtitle>
+                        <ion-row>
+                          <ion-col size="12"><ion-card-subtitle >{{productos.producto.nombre}}  {{productos.producto.descripcion}}</ion-card-subtitle></ion-col>
+                          <ion-col size="12"> <ion-card-subtitle > {{productos.cantidad}} x {{productos.producto.precio}}</ion-card-subtitle></ion-col>
+                        </ion-row>                      
                       </ion-item>
 
                       <ion-card-subtitle>Total de venta: ${{pedido.precioTotal}}</ion-card-subtitle>
@@ -52,8 +54,7 @@
                   </ion-card>
                 </ion-col>
                 <ion-col size="3">
-                  <ion-button size="small" fill="clear" size="large"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-                  <ion-button size="small" color="danger" fill="clear" size="large" ><ion-icon name="trash-outline"></ion-icon></ion-button>
+                  
                   <ion-button size="small" color="success" fill="clear" size="large" ><ion-icon name="print"></ion-icon></ion-button>
                 </ion-col>
               </ion-row>

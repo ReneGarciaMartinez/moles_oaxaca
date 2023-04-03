@@ -55,4 +55,6 @@ export interface Tienda{
   responsable:string;
   direccion:string;
   telefono:string;
+  debe:string;
+  cantidad_debe:number;
 }

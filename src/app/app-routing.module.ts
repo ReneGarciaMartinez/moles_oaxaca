@@ -83,6 +83,10 @@ const routes: Routes = [
     path: 'compra-credito',
     loadChildren: () => import('./pages/compra-credito/compra-credito.module').then( m => m.CompraCreditoPageModule)
   },
+  {
+    path: 'cambiar-precio',
+    loadChildren: () => import('./modals/cambiar-precio/cambiar-precio.module').then( m => m.CambiarPrecioPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { ExperienciaService } from '../services/experiencia.service';
 import { CompraCreditoPage } from '../pages/compra-credito/compra-credito.page';
 import { PrintService } from '../services/print.service';
+import { CambiarPrecioPage } from '../modals/cambiar-precio/cambiar-precio.page';
+import { log } from 'console';
 
 @Component({
   selector: 'app-tab3',
@@ -16,14 +18,17 @@ import { PrintService } from '../services/print.service';
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page {
-
+NuevoPrecio=0;
   count = 0;
+  Credito='0';
   datos_tienda: Tienda = {
     id:'',
     nombre: '',
       responsable:'',
       direccion: '',
-      telefono:''
+      telefono:'',
+      debe:'',
+      cantidad_debe:0
   };
  pedido:Pedido={
     id:'',
@@ -98,6 +103,7 @@ export class Tab3Page {
       this.datos_tienda=res;
 
     })
+    
   }
   loadCarrito() {
     this.precioTotal = 0;
@@ -118,7 +124,9 @@ export class Tab3Page {
       }
       this.precioTotal = suma;
     });
-    
+    if (this.datos_tienda.debe=="si") {
+      this.presentAlertDebe(this.datos_tienda.cantidad_debe);
+    }
   }
 
   async increment(id: any, cantidad: number, i: any) {
@@ -194,6 +202,36 @@ async presentAlert() {
   
   
 }
+async presentAlertDebe(cant:any) {
+  const alert = await this.alertController.create({
+    header: 'Esta tienda debe:$ '+cant,
+    mode:'ios',
+    buttons: [
+      {
+        text: 'Sin pago',
+        role: 'cancel',
+        handler: () => {
+          this.eliminarCarrito('No se le puede vender a un cliente con una cuenta atrasada');
+        },
+      },
+      {
+        text: 'Pagado',
+        role: 'confirm',
+        handler: () => {
+               this.datos_tienda.debe="no";
+               this.datos_tienda.cantidad_debe=0;
+               this.ActualizarTiendaCredito();
+        
+        },
+      },
+    ],
+  });
+
+  await alert.present();
+
+  
+  
+}
   CompraContado(){
     console.log("estamos en la funcion Compra de contado");
     this.pedidos.precioTotal=this.precioTotal;
@@ -213,13 +251,33 @@ async presentAlert() {
     
   }
   async compraCredito(){
-    const modal = await this.modalController.create({
-      component: CompraCreditoPage,
-      cssClass: 'class-modal',
-    });
-    return await modal.present();
+    // const modal = await this.modalController.create({
+    //   component: CompraCreditoPage,
+    //   cssClass: 'class-modal',
+    // });
+    // return await modal.present();
+    console.log("estamos en la funcion Compra de credito");
+    this.pedidos.precioTotal=this.precioTotal;
+    this.pedido.productos=this.pedidos;
+    this.pedido.precioTotal=this.precioTotal;
+    this.pedido.tienda=this.datos_tienda.nombre;
     
+    this.pedido.repartidor=this.datos.nombre+' '+this.datos.apellido_paterno+' '+this.datos.apellido_materno;
+    console.log("pedidos:",this.pedido);
+    this.datos_tienda.debe='si';
+    this.datos_tienda.cantidad_debe=this.pedido.precioTotal;
+    this.ActualizarTiendaCredito();
+    console.log("precio Total;",this.precioTotal);
+  
+   this.Credito='1';
+    this.impresion=1;
+    this.experiencia.presentToast('Selecciona una impresora');
+    this.listPrinter();    
 }
+  ActualizarTiendaCredito() {
+    const path = 'Tiendas/';
+    this.firestore.updateMole(this.datos_tienda, path, this.datos_tienda.id);
+  }
 
 //impresion
 
@@ -245,16 +303,21 @@ var myText=this.pedido.fecha+"\n\n\n cliente: "+
 this.pedido.tienda+"\n\n\n Repartidor: "+
 this.pedido.repartidor+"\n\n\n"+
 "-----------Productos-----------"
-+"\n\n\n"+"Cantidad |  Producto  | Precio U. ";
++"\n\n\n"+"  Producto     |      Precio U. \n\n\n";
 for (let index = 0; index < this.pedidos.length; index++) {
   const element = this.pedidos[index];
-  myText=myText+"\n\n\n"+element.cantidad+"  |"+element.producto.nombre+element.producto.descripcion+"|  $"+element.producto.precio+".00"
+  myText=myText+" \n\n\n "+element.producto.nombre+" "+element.producto.descripcion+"    |     $"+element.producto.precio*element.cantidad+".00"+"\n\n\n "+element.cantidad+"x"+element.producto.precio+".00";
   
 }
 var img = new Image();
 img.src ="https://utvco.edu.mx/w/wp-content/uploads/2022/05/LOGO-HALCONES.png";
-
-myText=myText+"\n\n\n Total: $"+this.pedidos.precioTotal+"\n\n\n Gracias por su compra :) \n\n\n ";
+var base64String = img.src.replace("data:", "")
+			.replace(/^.+,/, "");
+		
+myText="MOLES Y CHOCOLATES OAXACA DE ANTEQUERA\n\n\n "+myText+"\n\n\n Total: $"+this.pedidos.precioTotal+".00\n\n\n Gracias por su compra :) \n\n\n ";
+if (this.Credito=='1') {
+  myText=myText+"\n\n\n "+"DEBO(EMOS Y PAGARÉ(MOS) INCONDICIONALMENTE A LA ORDEN DE:"+"\n\n\n ______________________________\n\n\n A LA VISTA LA CANTIDAD SEÑALADA, IMPORTE DE MERCANCIAS RECIBIDAS DE CONFORMIDAD. SI NO FUERA PAGADA  SU VENCIMIENTO EL DIA CAUSARA INTERES MORATORIOS DEL MENSUAL.\n\n\n ______________________ \n\n\n ACEPTO(AMOS)"+"\n\n\n"; 
+}
 this.print.sendToBluetoothPrinter(this.selectedPrinter,myText);
 this.router.navigateByUrl('tabs/tab1');
 const id_nuevo =this.firestore.getId();
@@ -262,4 +325,46 @@ this.pedido.id=id_nuevo;
 this.firestore.createPedido(this.pedido,'Pedidos',id_nuevo)
 this.eliminarCarrito('Imprimiendo....'); 
 }
+
+  async cambiarPrecio(producto: any, index: any,precio:any){
+   const modal = await this.modalController.create({
+      component: CambiarPrecioPage,
+      cssClass: 'class-modal',
+      componentProps:{
+        'precioActual':precio,
+        'index':index,
+      }
+    
+    });
+    modal.onWillDismiss().then(res=>{
+      console.log(res);
+      console.log(res.data.precio);
+      this.NuevoPrecio=res.data.precio;
+      console.log("nuevo precio",this.NuevoPrecio);
+      
+      this.ActualizarPrecio(index);
+      
+    })
+    
+    return await modal.present();
+     
+  
+
+
+
+}
+  ActualizarPrecio(i:any) {
+    this.pedidos[i].producto.precio = this.NuevoPrecio;
+    const path = 'Usuarios/'+this.uid+'/Carrito/';
+    this.precioTotal = 0;
+    this.firestore
+      .updateCarri(this.all, path, this.uid)
+      .then((res) => {
+        
+        this.precioTotal = 0;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 }

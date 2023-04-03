@@ -24,19 +24,19 @@
       <ion-button   fill="clear"  [routerLink]="['/tiendas']" routerLinkActive="router-link-active"  expand="full"  >Tiendas</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle *ngIf="datos.rol=='administrador'"> 
-      <ion-button   fill="clear" [routerLink]="['/productos']" routerLinkActive="router-link-active"  expand="full"  >Productos Admin</ion-button>
+      <ion-button   fill="clear" [routerLink]="['/productos']" routerLinkActive="router-link-active"  expand="full"  >Productos</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 
-      <ion-button  fill="clear"  [routerLink]="['/tabs/tab2']" routerLinkActive="router-link-active"  expand="full" >Productos Repartidor</ion-button>
+      <ion-button *ngIf="datos.rol=='repartidor'" fill="clear"  [routerLink]="['/tabs/tab2']" routerLinkActive="router-link-active"  expand="full" >Productos</ion-button>
     </ion-menu-toggle>
     <ion-menu-toggle> 
-      <ion-button  fill="clear"  [routerLink]="['/usuarios']" routerLinkActive="router-link-active"  expand="full"  >Usuarios</ion-button>
+      <ion-button   *ngIf="datos.rol=='administrador'" fill="clear"  [routerLink]="['/usuarios']" routerLinkActive="router-link-active"  expand="full"  >Usuarios</ion-button>
     </ion-menu-toggle>
-    <ion-menu-toggle> 
+    <!-- <ion-menu-toggle> 
       <ion-button  fill="clear" [routerLink]="['/impresoras']" routerLinkActive="router-link-active"  expand="full">Impresoras</ion-button>
-    </ion-menu-toggle>
+    </ion-menu-toggle> -->
     <ion-menu-toggle> 
-      <ion-button  fill="clear" [routerLink]="['/home']" routerLinkActive="router-link-active"  expand="full">Pedidos</ion-button>
+      <ion-button  fill="clear" [routerLink]="['/tabs/tab1']" routerLinkActive="router-link-active"  expand="full">Pedidos</ion-button>
     </ion-menu-toggle>
  
     </ion-list>
